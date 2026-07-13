@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giorgia d'Onofrio — Interior Designer</title>
+<meta name="description" content="Portfolio di Giorgia d'Onofrio, interior designer. Progetti selezionati: residenziale, retail, allestimenti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#faf9f7;
+    --grey-1:#8a8a86;   /* testo secondario */
+    --grey-2:#d8d7d3;   /* filetti */
+    --grey-3:#efeeeb;   /* campiture */
+    --ff:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
+
+    --m:clamp(20px,4.5vw,72px);   /* margine di pagina */
+    --col-gap:clamp(16px,2vw,28px);
+    --unit:8px;                    /* tutto è multiplo di 8 */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:56px;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--ff);
+    font-size:16px;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible{outline:1px solid var(--ink);outline-offset:4px;}
+  ::selection{background:var(--ink);color:var(--paper);}
+
+  /* griglia a 12 colonne: unico sistema di allineamento */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:var(--col-gap);
+    padding-left:var(--m);
+    padding-right:var(--m);
+  }
+
+  .label{
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--grey-1);
+  }
+  .rule{border-top:1px solid var(--grey-2);}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(250,249,247,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--grey-2);
+    padding-top:calc(var(--unit)*2);
+    padding-bottom:calc(var(--unit)*2);
+    transition:background .4s ease, border-color .4s ease;
+  }
+  header .name{grid-column:1 / 5;font-size:13px;font-weight:600;letter-spacing:-0.01em;transition:color .4s ease;}
+  header .role{grid-column:5 / 9;font-size:13px;color:var(--grey-1);transition:color .4s ease;}
+  header nav{grid-column:9 / 13;display:flex;justify-content:flex-end;gap:calc(var(--unit)*3);font-size:13px;}
+  header nav a{color:var(--grey-1);transition:color .3s ease;}
+  header nav a:hover, header nav a.active{color:var(--ink);}
+
+  header.dark{
+    background:rgba(17,17,16,0.92);
+    border-bottom-color:rgba(255,255,255,0.14);
+  }
+  header.dark .name{color:#efefec;}
+  header.dark .role{color:#9a9a94;}
+  header.dark nav a{color:#9a9a94;}
+  header.dark nav a:hover, header.dark nav a.active{color:#efefec;}
+
+  header.muted{
+    background:rgba(228,226,221,0.95);
+    border-bottom-color:var(--grey-2);
+  }
+
+  header.muted2{
+    background:rgba(206,206,204,0.95);
+    border-bottom-color:rgba(0,0,0,0.12);
+  }
+
+  header.muted3{
+    background:rgba(150,150,148,0.95);
+    border-bottom-color:rgba(0,0,0,0.18);
+  }
+  header.muted3 .name{color:#242320;}
+  header.muted3 .role{color:#403d37;}
+  header.muted3 nav a{color:#403d37;}
+  header.muted3 nav a:hover, header.muted3 nav a.active{color:#1c1b19;}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:34vh;padding-bottom:calc(var(--unit)*14);}
+  .hero h1{
+    grid-column:1 / 10;
+    font-size:clamp(34px,5.4vw,76px);
+    font-weight:500;
+    line-height:1.08;
+    letter-spacing:-0.03em;
+    max-width:16ch;
+  }
+  .hero h1 .quiet{color:var(--grey-1);}
+  .hero .hero-note{
+    grid-column:10 / 13;
+    align-self:end;
+    font-size:14px;
+    color:var(--grey-1);
+    line-height:1.5;
+  }
+
+  /* ---------- dati ---------- */
+  .facts{padding-top:calc(var(--unit)*3);padding-bottom:calc(var(--unit)*12);display:flex;flex-wrap:wrap;gap:calc(var(--unit)*10);}
+  .facts .cell{grid-column:unset;}
+  .facts .cell .label{display:block;margin-bottom:calc(var(--unit)*1.5);}
+  .facts .cell .val{font-size:15px;font-weight:500;letter-spacing:-0.01em;}
+
+  /* ---------- studio ---------- */
+  .about{padding-top:calc(var(--unit)*12);padding-bottom:calc(var(--unit)*14);}
+  .about > .label{grid-column:1 / 3;}
+  .about .body{grid-column:4 / 11;display:flex;flex-direction:column;gap:calc(var(--unit)*3);}
+  .about p{font-size:clamp(17px,1.5vw,21px);line-height:1.5;letter-spacing:-0.012em;max-width:54ch;}
+  .about p.lede{font-size:clamp(19px,1.8vw,26px);line-height:1.4;}
+  .about .portrait{grid-column:11 / 13;aspect-ratio:3/4;background:var(--grey-3);overflow:hidden;}
+  .about .portrait img{width:100%;height:100%;object-fit:cover;}
+
+  /* ---------- indice ---------- */
+  .index{padding-top:calc(var(--unit)*3);padding-bottom:calc(var(--unit)*10);}
+  .index > .label{grid-column:1 / 3;padding-top:calc(var(--unit)*2);}
+  .index ol{grid-column:4 / 13;list-style:none;}
+  .index li{border-bottom:1px solid var(--grey-2);}
+  .index a{
+    display:grid;
+    grid-template-columns:48px 1fr auto;
+    align-items:baseline;
+    gap:var(--col-gap);
+    padding:calc(var(--unit)*2.5) 0;
+    transition:padding-left .35s cubic-bezier(.22,.9,.25,1);
+  }
+  .index a:hover{padding-left:calc(var(--unit)*1.5);}
+  .index .n{font-size:12px;color:var(--grey-1);}
+  .index .t{font-size:clamp(17px,1.7vw,22px);font-weight:500;letter-spacing:-0.02em;}
+  .index .c{font-size:13px;color:var(--grey-1);}
+
+  /* blocco raggruppato per i progetti 01 e 02: separati da una linea leggera, grigio solo in hover come gli altri */
+  .index li.index-pair{
+    border-bottom:1px solid var(--grey-2);
+  }
+  .index li.index-pair a{
+    transition:padding-left .35s cubic-bezier(.22,.9,.25,1), background-color .45s ease;
+    margin:0 calc(var(--unit)*-2.5);
+    padding-left:calc(var(--unit)*2.5);
+    padding-right:calc(var(--unit)*2.5);
+  }
+  .index li.index-pair a:hover,
+  .index li.index-pair a:focus-visible,
+  .index li.index-pair a:active{
+    background:var(--grey-3);
+    padding-left:calc(var(--unit)*4);
+  }
+  .index li.index-pair a[href="#p01"]{border-bottom:1px solid rgba(0,0,0,0.09);}
+
+  /* voci che anticipano lo sfondo grigio chiaro: progetto 04 */
+  .index a[href="#p04"]{
+    transition:padding-left .35s cubic-bezier(.22,.9,.25,1), background-color .45s ease;
+    margin:0 calc(var(--unit)*-2.5);
+    padding-left:calc(var(--unit)*2.5);
+    padding-right:calc(var(--unit)*2.5);
+  }
+  .index a[href="#p04"]:hover, .index a[href="#p04"]:focus-visible, .index a[href="#p04"]:active{
+    background:var(--grey-3);
+    padding-left:calc(var(--unit)*4);
+  }
+
+  /* voci che anticipano lo sfondo nero: progetti 03, 05, 07 */
+  .index a[href="#p03"],
+  .index a[href="#p05"],
+  .index a[href="#p06"]{
+    transition:padding-left .35s cubic-bezier(.22,.9,.25,1), background-color .45s ease, color .45s ease;
+    margin:0 calc(var(--unit)*-2.5);
+    padding-left:calc(var(--unit)*2.5);
+    padding-right:calc(var(--unit)*2.5);
+  }
+  .index a[href="#p03"]:hover, .index a[href="#p03"]:focus-visible, .index a[href="#p03"]:active,
+  .index a[href="#p05"]:hover, .index a[href="#p05"]:focus-visible, .index a[href="#p05"]:active,
+  .index a[href="#p06"]:hover, .index a[href="#p06"]:focus-visible, .index a[href="#p06"]:active{
+    background:var(--ink);
+    color:#efefec;
+    padding-left:calc(var(--unit)*4);
+  }
+  .index a[href="#p03"]:hover .n, .index a[href="#p03"]:hover .c,
+  .index a[href="#p03"]:focus-visible .n, .index a[href="#p03"]:focus-visible .c,
+  .index a[href="#p03"]:active .n, .index a[href="#p03"]:active .c,
+  .index a[href="#p05"]:hover .n, .index a[href="#p05"]:hover .c,
+  .index a[href="#p05"]:focus-visible .n, .index a[href="#p05"]:focus-visible .c,
+  .index a[href="#p05"]:active .n, .index a[href="#p05"]:active .c,
+  .index a[href="#p06"]:hover .n, .index a[href="#p06"]:hover .c,
+  .index a[href="#p06"]:focus-visible .n, .index a[href="#p06"]:focus-visible .c,
+  .index a[href="#p06"]:active .n, .index a[href="#p06"]:active .c{
+    color:#9a9a94;
+  }
+
+
+  /* ---------- progetti (scroll continuo) ---------- */
+  .project{
+    padding-top:calc(var(--unit)*12);
+    padding-bottom:calc(var(--unit)*12);
+    border-top:1px solid var(--grey-2);
+  }
+  .p-side{
+    grid-column:1 / 4;
+    position:sticky;top:110px;align-self:start;
+    display:flex;flex-direction:column;gap:calc(var(--unit)*3);
+  }
+  .p-num{font-size:12px;color:var(--grey-1);}
+  .p-title{font-size:clamp(24px,2.6vw,36px);font-weight:500;line-height:1.1;letter-spacing:-0.03em;}
+  .p-meta{
+    display:flex;flex-direction:column;gap:calc(var(--unit)*2);
+    padding-top:calc(var(--unit)*2);border-top:1px solid var(--grey-2);
+  }
+  .p-meta .row{display:flex;justify-content:space-between;gap:12px;font-size:13px;}
+  .p-meta .row span:first-child{color:var(--grey-1);}
+  .p-meta .row span:last-child{text-align:right;font-weight:500;}
+
+  /* ---------- pulsante disegni tecnici ---------- */
+  .tech-link{
+    display:inline-flex;align-items:center;gap:8px;
+    align-self:flex-start;
+    margin-top:calc(var(--unit)*1);
+    padding:calc(var(--unit)*1.5) calc(var(--unit)*2.5);
+    font-size:13px;font-weight:500;letter-spacing:-0.01em;
+    color:inherit;background:none;
+    border:1px solid currentColor;
+    cursor:pointer;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .tech-link .arrow{transition:transform .25s ease;}
+  .tech-link:hover{opacity:0.65;}
+  .tech-link:hover .arrow{transform:translateX(3px);}
+
+  /* ---------- finestra disegni tecnici (sfondo bianco a schermo intero) ---------- */
+  .tech-modal{
+    position:fixed;inset:0;z-index:250;
+    background:#ffffff;
+    opacity:0;visibility:hidden;
+    transition:opacity .4s ease;
+    overflow-y:auto;
+    padding:calc(var(--unit)*12) var(--m) calc(var(--unit)*10);
+  }
+  .tech-modal.open{opacity:1;visibility:visible;}
+  body.tech-open header{visibility:hidden;}
+  .tech-modal .tech-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    max-width:1100px;margin:0 auto calc(var(--unit)*6);
+    padding-bottom:calc(var(--unit)*3);
+    border-bottom:1px solid var(--grey-2);
+  }
+  .tech-modal .tech-head h3{font-size:clamp(20px,2vw,28px);font-weight:500;letter-spacing:-0.02em;color:var(--ink);}
+  .tech-modal .tech-head span{font-size:12px;color:var(--grey-1);}
+  .tech-close{
+    position:fixed;top:calc(var(--unit)*3);right:var(--m);z-index:251;
+    width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--grey-2);background:#ffffff;
+    color:var(--ink);font-size:18px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s ease;
+  }
+  .tech-close:hover{background:var(--grey-3);}
+  .tech-body{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:calc(var(--unit)*6);}
+  .tech-body p.note{font-size:14px;color:var(--grey-1);max-width:52ch;}
+  .tech-body figure{margin:0;}
+  .tech-body img{width:100%;height:auto;display:block;background:var(--grey-3);}
+  .tech-body figcaption{margin-top:calc(var(--unit)*1.5);font-size:12px;color:var(--grey-1);}
+  .tech-group{display:flex;flex-direction:column;gap:calc(var(--unit)*3);}
+  .tech-group > .label{padding-bottom:calc(var(--unit)*1.5);border-bottom:1px solid var(--grey-2);}
+  .tech-pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--col-gap);}
+  .tech-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--col-gap);}
+
+  /* ---------- mini-indice dentro le finestre disegni tecnici ---------- */
+  .tech-subnav{
+    display:flex;gap:calc(var(--unit)*4);
+    max-width:1100px;margin:0 auto;
+    padding-bottom:calc(var(--unit)*3);
+    border-bottom:1px solid var(--grey-2);
+  }
+  .tech-subnav a{
+    font-size:11px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;
+    color:var(--grey-1);
+    padding-bottom:calc(var(--unit)*1);
+    border-bottom:1px solid transparent;
+    transition:color .25s ease, border-color .25s ease;
+  }
+  .tech-subnav a:hover, .tech-subnav a:focus-visible{
+    color:var(--ink);
+    border-bottom-color:var(--ink);
+  }
+
+  /* ---------- disegno intervento (progetto 01) ---------- */
+  .intervento-layout{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:calc(var(--unit)*8);
+    align-items:stretch;
+  }
+  .intervento-figure{margin:0;}
+  .intervento-figure img{width:100%;height:auto;display:block;}
+  .intervento-text{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:calc(var(--unit)*2) 0;
+  }
+  .intervento-text .p-block .label{display:block;margin-bottom:calc(var(--unit)*1.5);}
+  @media (max-width:860px){
+    .intervento-layout{grid-template-columns:1fr;gap:calc(var(--unit)*5);}
+    .intervento-text{gap:calc(var(--unit)*5);}
+  }
+
+  /* ---------- link video ---------- */
+  .video-tile{
+    display:flex;flex-direction:column;align-items:flex-start;gap:calc(var(--unit)*1.5);
+    width:auto;background:none;border:none;cursor:pointer;
+    padding:calc(var(--unit)*2) 0;
+    text-align:left;
+    align-self:center;
+  }
+  .video-tile .video-tile-label{
+    font-size:clamp(40px,6vw,72px);font-weight:600;letter-spacing:-0.03em;line-height:1;
+    color:var(--ink);transition:opacity .25s ease;
+  }
+  .video-tile:hover .video-tile-label{opacity:0.6;}
+  .video-tile .video-tile-sub{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--grey-1);
+  }
+  .video-tile .video-tile-sub .arrow{transition:transform .25s ease;}
+  .video-tile:hover .video-tile-sub .arrow{transform:translateX(3px);}
+  .tech-video{width:100%;height:auto;display:block;background:#000;}
+
+  .video-frame{display:flex;align-items:center;justify-content:center;}
+  .video-frame .video-tile{align-items:center;text-align:center;align-self:auto;}
+  .video-frame .video-tile .video-tile-sub{justify-content:center;}
+  .video-tile.no-frame{
+    width:100%;align-self:auto;align-items:center;text-align:center;
+    padding:calc(var(--unit)*5) 0;
+  }
+  .video-tile.no-frame .video-tile-sub{justify-content:center;}
+  body.tech-open{overflow:hidden;}
+
+  .p-main{grid-column:5 / 13;display:flex;flex-direction:column;gap:calc(var(--unit)*6);}
+  .p-text{display:grid;grid-template-columns:1fr 1fr;gap:var(--col-gap) calc(var(--col-gap)*2);}
+  .p-block .label{display:block;margin-bottom:calc(var(--unit)*1.5);}
+  .p-block p{font-size:16px;line-height:1.55;max-width:44ch;color:#3a3a38;}
+  .p-figure{margin:0;}
+  .p-figure .frame{width:100%;background:var(--grey-3);overflow:hidden;}
+  .p-figure .frame img{width:100%;height:100%;object-fit:contain;}
+  .p-figure figcaption{margin-top:calc(var(--unit)*1.5);font-size:12px;color:var(--grey-1);}
+  .ratio-32 .frame{aspect-ratio:3/2;}
+  .ratio-43 .frame{aspect-ratio:4/3;}
+  .auto .frame{aspect-ratio:auto;}
+  .auto .frame img{height:auto;object-fit:unset;}
+  .p-pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--col-gap);}
+  .p-figure.solo-small{max-width:48%;}
+  .p-figure.cover .frame img{object-fit:cover;height:100%;}
+
+  .p-diagram{display:grid;grid-template-columns:1.4fr 1fr;gap:calc(var(--col-gap)*2);align-items:center;}
+  .p-diagram .frame{background:var(--paper);}
+  .p-diagram .legend{display:flex;flex-direction:column;gap:calc(var(--unit)*4);}
+  .p-diagram .legend .item{border-left:1px solid var(--grey-2);padding-left:calc(var(--unit)*2.5);}
+  .p-diagram .legend .item .label{display:block;margin-bottom:calc(var(--unit)*1);}
+  .p-diagram .legend .item p{font-size:14px;line-height:1.5;color:#3a3a38;max-width:32ch;}
+
+  .ph{
+    width:100%;height:100%;
+    display:flex;align-items:flex-end;
+    padding:calc(var(--unit)*2);
+    background:var(--grey-3);
+    color:var(--grey-1);
+    font-size:11px;letter-spacing:0.09em;text-transform:uppercase;
+  }
+
+  /* ---------- progetto 01: leggero sfondo grigio per segnalare il cambio ---------- */
+  #p01{
+    background:var(--grey-3);
+    padding-bottom:calc(var(--unit)*6);
+    scroll-margin-top:-56px;
+  }
+  #p01 .frame{background:#e4e2dd;}
+
+  /* ---------- progetto 02: stesso sfondo del progetto 01 (i due progetti comunicano tra loro) ---------- */
+  #p02{
+    background:var(--grey-3);
+    border-top:none;
+    padding-top:calc(var(--unit)*6);
+    scroll-margin-top:-56px;
+  }
+  #p02 .frame{background:#e4e2dd;}
+
+  /* ---------- sezioni a sfondo grigio chiaro: progetti 01, 02, 04, 06 ---------- */
+  #p01, #p02, #p04{
+    background:var(--grey-3);
+    scroll-margin-top:-56px;
+  }
+  #p01 .frame, #p02 .frame, #p04 .frame{background:#e4e2dd;}
+
+  /* ---------- sezioni a sfondo nero: progetti 03, 05, 07 ---------- */
+  #p03, #p05, #p06{
+    background:var(--ink);
+    color:#efefec;
+    scroll-margin-top:-56px;
+  }
+  #p03 .label, #p05 .label, #p06 .label{color:#9a9a94;}
+  #p03 .p-num, #p05 .p-num, #p06 .p-num{color:#8a8a86;}
+  #p03 .p-meta, #p05 .p-meta, #p06 .p-meta{border-top-color:rgba(255,255,255,0.18);}
+  #p03 .p-meta .row span:first-child, #p05 .p-meta .row span:first-child, #p06 .p-meta .row span:first-child{color:#9a9a94;}
+  #p03 .p-meta .row span:last-child, #p05 .p-meta .row span:last-child, #p06 .p-meta .row span:last-child{color:#efefec;}
+  #p03 .p-block p, #p05 .p-block p, #p06 .p-block p{color:#c4c2ba;}
+  #p03 .frame, #p05 .frame, #p06 .frame{background:#161615;}
+  #p03 figcaption, #p05 figcaption, #p06 figcaption{color:#8a8a86;}
+  #p03 .video-tile-label, #p05 .video-tile-label, #p06 .video-tile-label{color:#efefec;}
+  #p03 .video-tile-sub, #p05 .video-tile-sub, #p06 .video-tile-sub{color:#9a9a94;}
+
+  /* ---------- progetto 07: sezione finale, respiro extra prima del footer ---------- */
+  #p06{
+    padding-top:calc(var(--unit)*14);
+    padding-bottom:calc(var(--unit)*14);
+    margin-top:calc(var(--unit)*-1);
+    border-top:none;
+  }
+  #p06 + .divider .line{background:var(--grey-2);}
+
+  /* fascia di transizione, in alto e in basso, verso lo sfondo chiaro */
+  #p06::before, #p06::after{
+    content:'';display:block;position:relative;height:1px;
+  }
+
+  /* ---------- contatti ---------- */
+  footer{
+    border-top:1px solid var(--grey-2);
+    padding-top:calc(var(--unit)*12);
+    padding-bottom:calc(var(--unit)*5);
+  }
+  footer .claim{
+    grid-column:1 / 8;
+    font-size:clamp(24px,3.2vw,44px);
+    font-weight:500;line-height:1.15;letter-spacing:-0.03em;max-width:18ch;
+  }
+  footer .contacts{grid-column:9 / 13;display:flex;flex-direction:column;gap:calc(var(--unit)*3);}
+  footer .contacts .item .label{display:block;margin-bottom:var(--unit);}
+  footer .contacts .item a{
+    font-size:16px;font-weight:500;
+    border-bottom:1px solid var(--grey-2);
+    transition:border-color .3s ease;
+  }
+  footer .contacts .item a:hover{border-color:var(--ink);}
+  footer .colophon{
+    grid-column:1 / 13;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    margin-top:calc(var(--unit)*12);
+    padding-top:calc(var(--unit)*2);
+    border-top:1px solid var(--grey-2);
+  }
+
+  /* ---------- movimento discreto ---------- */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .8s ease, transform .8s cubic-bezier(.22,.9,.25,1);}
+  .rv.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;}
+    .rv{opacity:1;transform:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .hero h1{grid-column:1 / 13;}
+    .hero .hero-note{grid-column:1 / 13;margin-top:calc(var(--unit)*4);}
+    .facts{gap:calc(var(--unit)*4);}
+    .facts .cell{flex-basis:100%;margin-bottom:calc(var(--unit)*3);}
+    .about > .label{grid-column:1 / 13;margin-bottom:calc(var(--unit)*3);}
+    .about .body{grid-column:1 / 13;}
+    .about .portrait{grid-column:1 / 13;aspect-ratio:4/3;margin-top:calc(var(--unit)*5);}
+    .index > .label{grid-column:1 / 13;}
+    .index ol{grid-column:1 / 13;}
+    .p-side{grid-column:1 / 13;position:static;margin-bottom:calc(var(--unit)*5);}
+    .p-main{grid-column:1 / 13;}
+    .p-text{grid-template-columns:1fr;gap:calc(var(--unit)*4);}
+    .p-pair{grid-template-columns:1fr;}
+    .tech-pair{grid-template-columns:1fr;}
+    .tech-trio{grid-template-columns:1fr;}
+    .p-figure.solo-small{max-width:100%;}
+    .p-diagram{grid-template-columns:1fr;gap:calc(var(--unit)*4);}
+    footer .claim{grid-column:1 / 13;}
+    footer .contacts{grid-column:1 / 13;margin-top:calc(var(--unit)*6);}
+    header .role{display:none;}
+    header .name{grid-column:1 / 7;}
+    header nav{grid-column:7 / 13;gap:calc(var(--unit)*2);}
+  }
+</style>
+</head>
+<body>
+
+<header class="grid">
+  <a class="name" href="#top">Giorgia d'Onofrio</a>
+  <span class="role">Interior Designer</span>
+  <nav>
+    <a href="#about">Studio</a>
+    <a href="#work">Progetti</a>
+    <a href="#contact">Contatti</a>
+  </nav>
+</header>
+
+<section class="hero grid" id="top">
+  <h1 class="rv">Giorgia d'Onofrio<span class="quiet">.</span></h1>
+  <p class="hero-note rv">Interior designer.<br>Riqualificazioni residenziali, allestimenti e scenografie.</p>
+</section>
+
+<section class="facts grid rule">
+  <div class="cell rv"><span class="label">Base</span><span class="val">Roma</span></div>
+  <div class="cell rv"><span class="label">Formazione</span><span class="val">IED, Istituto Europeo di Design — Interior Design</span></div>
+  <div class="cell rv"><span class="label">Contatti</span><span class="val">gdonofrio06@gmail.com</span></div>
+</section>
+
+<section class="about grid rule" id="about">
+  <span class="label rv">Studio</span>
+  <div class="body">
+    <p class="lede rv">Nel mio percorso ho imparato quanto sia importante ascoltare le persone e comprendere i loro bisogni: è da lì che nasce ogni progetto ben fatto.</p>
+    <p class="rv">Sono una persona estroversa e solare, e lavorare a contatto con gli altri mi permette di dare il meglio. Allo stesso tempo, quando si parla di lavoro, sono precisa, seria e attenta ai dettagli.</p>
+    <p class="rv">Amo viaggiare e scoprire posti, culture e abitudini diverse: ogni esperienza diventa un modo per arricchire la mia visione creativa. La fotografia è una delle mie passioni più grandi e mi accompagna in ogni viaggio; scattare mi aiuta a osservare meglio la realtà, a cogliere atmosfere e dettagli che porto direttamente nel mio processo di progettazione.</p>
+    <p class="rv">Con questo portfolio desidero mostrare il mio modo di lavorare, ciò che mi ispira e ciò che cerco di trasmettere attraverso i miei progetti.</p>
+  </div>
+  <div class="portrait rv"><img src="assets/portrait.png" alt="Giorgia d'Onofrio — ritratto"></div>
+</section>
+
+<section class="index grid rule" id="work">
+  <span class="label rv">Progetti selezionati</span>
+  <ol class="rv">
+    <li class="index-pair">
+      <a href="#p01"><span class="n">01</span><span class="t">Ritual Concrete</span><span class="c">Wellness — Villaggio Olimpico, Roma</span></a>
+      <a href="#p02"><span class="n">02</span><span class="t">Ritual Concrete — Cortometraggio Horror</span><span class="c">Video sperimentale — stessa architettura del progetto 01</span></a>
+    </li>
+    <li><a href="#p03"><span class="n">03</span><span class="t">Villaggio Globale — Atmosfere Parallele</span><span class="c">Allestimento — MACRO, Roma</span></a></li>
+    <li><a href="#p04"><span class="n">04</span><span class="t">Ristrutturazione Appartamento con Impianti</span><span class="c">Via San Francesco d'Assisi, Avellino</span></a></li>
+    <li><a href="#p05"><span class="n">05</span><span class="t">Villa Sperimentale — Rendering in Unreal Engine</span><span class="c">Formazione software — Unreal Engine</span></a></li>
+    <li><a href="#p06"><span class="n">06</span><span class="t">MISBHV — Brand Analysis & Product Design</span><span class="c">Branding, prodotto e fotografia</span></a></li>
+  </ol>
+</section>
+
+<main>
+
+  <article class="project grid" id="p01">
+    <div class="p-side">
+      <span class="p-num rv">01 / 06</span>
+      <h2 class="p-title rv">Ritual Concrete</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Wellness / Spa</span></div>
+        <div class="row"><span>Luogo</span><span>Villaggio Olimpico, Roma</span></div>
+        <div class="row"><span>Anno</span><span>2024 — 2025</span></div>
+        <div class="row"><span>Materiali</span><span>Cemento</span></div>
+        <div class="row"><span>Ruolo</span><span>Progetto e concept</span></div>
+      </div>
+      <button type="button" class="tech-link rv" data-target="intervento-p01">Disegno intervento<span class="arrow">→</span></button>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-main.png" alt="Ritual Concrete — vista principale della piscina tra gli archi in cemento"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Il progetto fa parte della riqualificazione del Villaggio Olimpico di Roma e nasce con l'obiettivo di ridare valore a uno spazio oggi inutilizzato. La proposta è una spa ispirata ai bagni turchi, pensata come luogo di benessere e rigenerazione in dialogo con l'architettura esistente.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>L'ambiente è interamente realizzato in cemento: pavimenti e pareti condividono la stessa finitura, mentre archi e colonne, in una tonalità più scura, scandiscono lo spazio richiamando le geometrie dell'architettura termale orientale. La forma complessiva rievoca il Tempietto del Bramante, reinterpretato in chiave contemporanea per unire tradizione e nuova funzionalità.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Un ambiente in cui luce, materia e simmetria lavorano insieme per offrire un'esperienza sensoriale rilassante, trasformando un vuoto urbano in un luogo significativo e pieno di identità.</p>
+        </div>
+      </div>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-1.png" alt="Ritual Concrete — area bar affacciata sulla piscina"></div><figcaption>Area bar e relax vista dagli archi.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-2.png" alt="Ritual Concrete — percorso tra gli archi verso la zona docce"></div><figcaption>Percorso verso la zona docce.</figcaption></figure>
+      </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-final.jpg" alt="Ritual Concrete — bagno turco con pareti in mosaico verde"></div><figcaption>Bagno turco, finiture in mosaico verde.</figcaption></figure>
+    </div>
+  </article>
+  <article class="project grid" id="p02">
+    <div class="p-side">
+      <span class="p-num rv">02 / 06</span>
+      <h2 class="p-title rv">Ritual Concrete — Cortometraggio Horror</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Video sperimentale — cortometraggio horror</span></div>
+        <div class="row"><span>Riferimento</span><span>Stessa architettura del progetto 01 (Ritual Concrete)</span></div>
+        <div class="row"><span>Anno</span><span>2024 — 2025</span></div>
+        <div class="row"><span>Ruolo</span><span>Regia, ripresa e montaggio</span></div>
+      </div>
+      <button type="button" class="tech-link rv" data-target="video-p02">Guarda il video<span class="arrow">→</span></button>
+    </div>
+    <div class="p-main">
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Successivamente al progetto Ritual Concrete, mi è stato chiesto di realizzare un video creativo e diverso, sperimentando il più possibile a partire da un'architettura che avevo già progettato in precedenza. Ho scelto di trasformarla in un cortometraggio horror.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>Pur condividendo la stessa architettura, si tratta di un progetto autonomo e distinto rispetto a Ritual Concrete, che resta un progetto di wellness a sé stante. Qui gli stessi archi e le stesse geometrie in cemento vengono reinterpretati attraverso luce, silenzio, ritmo e montaggio, per trasformare uno spazio pensato per il benessere in un ambiente instabile e minaccioso.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Due letture completamente opposte della stessa architettura: da un lato Ritual Concrete, pensato per il benessere, dall'altro questo cortometraggio, una sua reinterpretazione visiva e narrativa capace di raccontare un'atmosfera radicalmente diversa.</p>
+        </div>
+      </div>
+      <button type="button" class="tech-link video-tile no-frame rv" data-target="video-p02">
+        <span class="video-tile-label">Video</span>
+        <span class="video-tile-sub">Guarda il cortometraggio<span class="arrow">→</span></span>
+      </button>
+    </div>
+  </article>
+  <article class="project grid" id="p03">
+    <div class="p-side">
+      <span class="p-num rv">03 / 06</span>
+      <h2 class="p-title rv">Villaggio Globale — Atmosfere Parallele</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Allestimento museale / scenografia</span></div>
+        <div class="row"><span>Luogo</span><span>MACRO, Roma</span></div>
+        <div class="row"><span>Anno</span><span>2026</span></div>
+        <div class="row"><span>Ruolo</span><span>Concept, scenografia, struttura</span></div>
+      </div>
+      <button type="button" class="tech-link rv" data-target="tech-p03">Disegni tecnici<span class="arrow">→</span></button>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-1.jpg" alt="Villaggio Globale — assonometria della struttura, il foyer del MACRO e ciò che si va a inglobare"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Il progetto trasforma il cortile interno del MACRO in un hub culturale internazionale: ogni mese viene ricreata una città diversa attraverso una scenografia immersiva, capace di restituirne atmosfera, identità e immaginario culturale — un viaggio urbano alternativo al viaggio fisico, in risposta all'overtourism e al tema della sostenibilità culturale.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>Una struttura in tubolare di acciaio zincato verniciato a polvere e cavi metallici si ingloba nella facciata del MACRO, replicandone l'astrazione secondo il concept "atmosfere parallele", e sorregge scenografie diverse mese per mese. Le città vengono scelte seguendo i meridiani terrestri: a ogni mese corrisponde un meridiano specifico, all'interno del quale viene estratta casualmente la città da rappresentare, unendo la rigidità della mappa all'imprevedibilità del caso. Tra le atmosfere sviluppate, Tokyo (Giappone, luglio — meridiano 139° est) con insegne LED, specchi e proiezioni, e Il Cairo (Egitto, marzo — meridiano 31° est) costruito sul dualismo tra natura e città.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Riqualificare non significa solo restituire uno spazio: significa dargli la capacità di diventare, ogni volta, qualcos'altro.</p>
+        </div>
+      </div>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-2.jpg" alt="Villaggio Globale — la struttura inglobata nel cortile del MACRO"></div><figcaption>La struttura inglobata nel cortile del MACRO.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-1.jpg" alt="Villaggio Globale — scenografia Tokyo, corridoio di insegne al neon"></div><figcaption>Tokyo, luglio — meridiano 139° est.</figcaption></figure>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-tokyo-2.jpg" alt="Villaggio Globale — scenografia Tokyo, insegne sospese"></div><figcaption>Insegne sospese e proiezioni specchiate.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-tokyo-3.jpg" alt="Villaggio Globale — scenografia Tokyo, vista dal basso delle insegne"></div><figcaption>Vista dal basso, tra le insegne LED.</figcaption></figure>
+      </div>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-cairo-2.jpg" alt="Villaggio Globale — scenografia Il Cairo, vista d'insieme del cortile"></div><figcaption>Il Cairo, marzo — meridiano 31° est.</figcaption></figure>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-cairo-1.jpg" alt="Villaggio Globale — scenografia Il Cairo, teli colorati e sabbia, dettaglio"></div><figcaption>Dettaglio dei teli e della sabbia.</figcaption></figure>
+        <button type="button" class="tech-link video-tile" data-target="video-p03">
+          <span class="video-tile-label">Video</span>
+          <span class="video-tile-sub">Guarda il video del progetto<span class="arrow">→</span></span>
+        </button>
+      </div>
+    </div>
+  </article>
+  <article class="project grid" id="p04">
+    <div class="p-side">
+      <span class="p-num rv">04 / 06</span>
+      <h2 class="p-title rv">Ristrutturazione Appartamento con Impianti</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Ristrutturazione residenziale</span></div>
+        <div class="row"><span>Luogo</span><span>Via San Francesco d'Assisi, Avellino</span></div>
+        <div class="row"><span>Anno</span><span>2025</span></div>
+        <div class="row"><span>Ruolo</span><span>Progetto e impiantistica</span></div>
+      </div>
+      <button type="button" class="tech-link rv" data-target="tech-p04">Disegni tecnici<span class="arrow">→</span></button>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-living.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista del soggiorno e della cucina"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Il progetto riguarda la ristrutturazione completa di un appartamento ad Avellino, in Via San Francesco d'Assisi, con la riprogettazione degli spazi ante e post opera e lo sviluppo integrato degli impianti elettrico, idraulico e termico.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>A partire da un'analisi dello stato di fatto e da ricerche di mercato sui materiali e le finiture, il lavoro ha previsto la ridistribuzione degli ambienti e la progettazione tecnica completa degli impianti: piante e schemi elettrici, piante e sezioni degli impianti idraulici per i bagni e la lavanderia, e il dimensionamento dell'impianto termico. I render restituiscono l'atmosfera degli ambienti principali: soggiorno con cucina a vista, camera da letto, bagno e cucina.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Un progetto che unisce la componente tecnica dell'impiantistica a quella di interior design, restituendo un appartamento riorganizzato e coerente in ogni suo ambiente, dalla distribuzione degli spazi fino al dettaglio impiantistico.</p>
+        </div>
+      </div>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p03-render-bedroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista della camera da letto"></div><figcaption>Camera da letto.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p03-render-kitchen.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — dettaglio della cucina"></div><figcaption>Dettaglio della cucina.</figcaption></figure>
+      </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-bathroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista del bagno"></div><figcaption>Bagno.</figcaption></figure>
+    </div>
+  </article>
+  <article class="project grid" id="p05">
+    <div class="p-side">
+      <span class="p-num rv">05 / 06</span>
+      <h2 class="p-title rv">Villa Sperimentale — Rendering in Unreal Engine</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Modellazione 3D e rendering — esercitazione</span></div>
+        <div class="row"><span>Software</span><span>Unreal Engine</span></div>
+        <div class="row"><span>Anno</span><span>2026</span></div>
+        <div class="row"><span>Ruolo</span><span>Modellazione, arredo e rendering</span></div>
+      </div>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-exterior.png" alt="Villa sperimentale in Unreal Engine — vista esterna con copertura a sbalzo e piscina a sfioro"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Nell'ambito di un'esercitazione mi è stato chiesto di prendere in mano Unreal Engine, un software di modellazione e rendering in tempo reale che non avevo mai utilizzato prima, applicandolo alla progettazione di un'abitazione.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>Ho affrontato il programma da autodidatta, imparandone le basi passo dopo passo: dalla costruzione dei volumi architettonici — una casa con una grande copertura in cemento a sbalzo e una piscina a sfioro — fino all'allestimento degli interni con arredi, librerie, tappeti e illuminazione, per arrivare infine al setup delle inquadrature e al rendering finale, gestito interamente all'interno di Unreal.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Un primo confronto diretto con un software professionale diverso da quelli abituali: poca esperienza ma sufficiente a capirne le potenzialità nella presentazione dei progetti e ad ampliare il mio metodo di lavoro.</p>
+        </div>
+      </div>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-living.png" alt="Villa sperimentale — soggiorno con tappeto a righe e vista sulla scalinata in cemento"></div><figcaption>Soggiorno, con vista sulla scalinata in cemento.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-lounge.png" alt="Villa sperimentale — angolo lounge con divano in pelle e libreria"></div><figcaption>Angolo lounge, divano in pelle.</figcaption></figure>
+      </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-library.png" alt="Villa sperimentale — libreria a doppio corpo con tavolo e sgabelli"></div><figcaption>Libreria e zona lettura.</figcaption></figure>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-covered-terrace.png" alt="Villa sperimentale — terrazza coperta con tavolo da pranzo affacciata sulla piscina"></div><figcaption>Terrazza coperta, affacciata sulla piscina.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-library-view.png" alt="Villa sperimentale — libreria con vista sulle pareti esterne in cemento"></div><figcaption>Libreria, con affaccio sul cortile esterno.</figcaption></figure>
+      </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-terrace.png" alt="Villa sperimentale — vista dagli interni verso la piscina"></div></figure>
+    </div>
+  </article>
+  <article class="project grid" id="p06">
+    <div class="p-side">
+      <span class="p-num rv">06 / 06</span>
+      <h2 class="p-title rv">MISBHV — Brand Analysis & Product Design</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Brand analysis & product design</span></div>
+        <div class="row"><span>Brand</span><span>MISBHV</span></div>
+        <div class="row"><span>Collab</span><span>Supreme (ipotetica)</span></div>
+        <div class="row"><span>Anno</span><span>2024 — 2025</span></div>
+        <div class="row"><span>Ruolo</span><span>Analisi, styling, fotografia</span></div>
+      </div>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-shoot-underpass.jpg" alt="MISBHV — shooting in un sottopasso urbano, t-shirt vintage"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Il progetto nasce dall'analisi del brand MISBHV, studiandone target, identità e codici visivi per tradurre l'immagine del marchio in un sistema coerente e riconoscibile.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>L'indagine include ricerca visiva, riferimenti culturali e studio del prodotto, fino alla progettazione di un capo ipotetico pensato come una collaborazione con Supreme. A completamento, ho curato personalmente uno shooting fotografico analogico: scelta delle location urbane, cambi abito e ricerca di capi vintage coerenti con l'estetica cruda e underground del brand.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Un progetto in cui analisi, prodotto e fotografia costruiscono una narrazione coerente dell'identità MISBHV, restituendo un'immagine intensa, materica e contemporanea.</p>
+        </div>
+      </div>
+      <div class="p-pair rv">
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-shoot-belt.jpg" alt="MISBHV — dettaglio look, shorts stampati"></div><figcaption>Styling: shorts stampati.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-shoot-crouch.jpg" alt="MISBHV — ritratto in accosciata con canotta del brand"></div><figcaption>Location scouting, muro in cemento.</figcaption></figure>
+      </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-shoot-tattoo.jpg" alt="MISBHV — dettaglio schiena con t-shirt vintage con scritta"></div><figcaption>Capo vintage, dettaglio schiena.</figcaption></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-product.jpg" alt="MISBHV x Supreme — Subversive Ride, le quattro tavole skate della capsule collection"></div><figcaption>Subversive Ride, uno skate ipotetico progettato in collaborazione con Supreme.</figcaption></figure>
+    </div>
+  </article>
+
+</main>
+
+<!-- ---------- disegni tecnici: finestre a schermo intero ---------- -->
+<div class="tech-modal" id="tech-p03">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Villaggio Globale — Atmosfere Parallele</h3>
+    <span>Disegni tecnici</span>
+  </div>
+  <div class="tech-body">
+    <nav class="tech-subnav">
+      <a href="#tech-p03-struttura">Struttura</a>
+      <a href="#tech-p03-scenografie">Scenografie</a>
+    </nav>
+
+    <div class="tech-group" id="tech-p03-struttura">
+      <span class="label">Struttura</span>
+      <figure>
+        <img src="assets/p03-tech-analisi-compositiva.png" alt="Analisi compositiva della facciata del MACRO e concept Atmosfere Parallele">
+        <figcaption>Analisi compositiva — dalla facciata del MACRO al concept Atmosfere Parallele.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/p03-tech-struttura-macro.png" alt="Come si sostiene al MACRO — sezione A-A' e dettagli costruttivi della struttura">
+        <figcaption>Come si sostiene al MACRO — sezione A-A' e dettagli costruttivi.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/p03-tech-immersione.png" alt="Come immerge lo spettatore e come sorregge le diverse scenografie — prospetto scala 1:200">
+        <figcaption>Come immerge lo spettatore, come sorregge le scenografie — prospetto scala 1:200.</figcaption>
+      </figure>
+    </div>
+
+    <div class="tech-group" id="tech-p03-scenografie">
+      <span class="label">Scenografie</span>
+      <div class="tech-pair">
+        <figure>
+          <img src="assets/p03-tech-tokyo.png" alt="Disegni tecnici della scenografia di Tokyo, sezioni nel contesto">
+          <figcaption>Tokyo.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/p03-tech-cairo.png" alt="Disegni tecnici della scenografia del Cairo, sezioni nel contesto">
+          <figcaption>Cairo.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tech-modal video-modal" id="video-p03">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Villaggio Globale — Atmosfere Parallele</h3>
+    <span>Video</span>
+  </div>
+  <div class="tech-body">
+    <video class="tech-video" src="assets/p02-video.mp4" controls loop playsinline></video>
+  </div>
+</div>
+
+<div class="tech-modal" id="tech-p04">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Ristrutturazione Appartamento con Impianti</h3>
+    <span>Disegni tecnici</span>
+  </div>
+  <div class="tech-body">
+    <div class="tech-group">
+      <span class="label">Ante e post opera</span>
+      <div class="tech-pair">
+        <figure><img src="assets/p04-tech-ante.png" alt="Pianta ante opera, evidenziata in giallo"><figcaption>Ante opera.</figcaption></figure>
+        <figure><img src="assets/p04-tech-post.png" alt="Pianta post opera, evidenziata in rosso"><figcaption>Post opera.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="tech-group">
+      <span class="label">Dettagli sezione</span>
+      <figure><img src="assets/p04-tech-dettagli.png" alt="Dettagli costruttivi in sezione"><figcaption>Dettagli costruttivi in sezione.</figcaption></figure>
+    </div>
+
+    <div class="tech-group">
+      <span class="label">Impianto elettrico</span>
+      <figure><img src="assets/p04-tech-pos3.png" alt="Impianto elettrico, pianta con legenda"><figcaption>Pianta, con legenda.</figcaption></figure>
+    </div>
+
+    <div class="tech-group">
+      <span class="label">Impianto idraulico</span>
+      <figure><img src="assets/p04-tech-pos4.png" alt="Impianto idraulico, pianta"><figcaption>Pianta.</figcaption></figure>
+    </div>
+
+    <div class="tech-group">
+      <span class="label">Sezioni bagni e lavanderia</span>
+      <figure><img src="assets/p04-tech-pos5.png" alt="Sezione, bagno 1 e bagno 2"><figcaption>Sezione, bagno 1 e bagno 2.</figcaption></figure>
+      <div class="tech-pair">
+        <figure><img src="assets/p04-tech-pos7.png" alt="Sezione, bagno 1"><figcaption>Sezione, bagno 1.</figcaption></figure>
+        <figure><img src="assets/p04-tech-pos8.png" alt="Sezione, lavanderia"><figcaption>Sezione, lavanderia.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="tech-group">
+      <span class="label">Impianto termico</span>
+      <figure><img src="assets/p04-tech-pos9.png" alt="Impianto termico, pianta"><figcaption>Pianta.</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<div class="tech-modal" id="intervento-p01">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Ritual Concrete</h3>
+    <span>Disegno intervento</span>
+  </div>
+  <div class="tech-body">
+    <div class="intervento-layout">
+      <figure class="intervento-figure"><img src="assets/p01-intervento-diagram.png" alt="Assonometria dell'intervento, Ritual Concrete"></figure>
+      <div class="intervento-text">
+        <div class="p-block">
+          <span class="label">Servizi</span>
+          <p>Reception, spogliatoi, bagno turco, sauna, docce, idromassaggio, zona relax e bar.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Elementi architettonici aggiunti</span>
+          <p>Le nuove volte ad arco in cemento, inserite come sistema autonomo all'interno del fabbricato esistente.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Elementi architettonici persistenti</span>
+          <p>Il volume e la struttura preesistenti del Villaggio Olimpico, mantenuti come guscio dell'intervento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tech-modal video-modal" id="video-p02">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Ritual Concrete — Cortometraggio Horror</h3>
+    <span>Video</span>
+  </div>
+  <div class="tech-body">
+    <video class="tech-video" src="assets/p05-video.mp4" controls loop playsinline></video>
+  </div>
+</div>
+
+<div class="tech-modal" id="tech-p06">
+  <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
+  <div class="tech-head">
+    <h3>Nome Progetto</h3>
+    <span>Disegni tecnici</span>
+  </div>
+  <div class="tech-body">
+    <p class="note">Piante, sezioni e dettagli tecnici del progetto: in arrivo.</p>
+  </div>
+</div>
+
+<footer class="grid" id="contact">
+  <p class="claim rv">Disponibile per nuovi progetti e collaborazioni.</p>
+  <div class="contacts">
+    <div class="item rv"><span class="label">Email</span><a href="mailto:gdonofrio06@gmail.com">gdonofrio06@gmail.com</a></div>
+    <div class="item rv"><span class="label">Telefono</span><a href="tel:+393756574346">375 657 4346</a></div>
+    <div class="item rv"><span class="label">Social</span><a href="#" target="_blank" rel="noopener">Instagram</a></div>
+  </div>
+  <div class="colophon">
+    <span class="label">Giorgia d'Onofrio — Interior Designer</span>
+    <span class="label">Portfolio 2026</span>
+  </div>
+</footer>
+
+<script>
+  if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('load', () => window.scrollTo(0,0));
+
+  // comparsa discreta: opacità + 14px, una sola volta per elemento
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach((e, i)=>{
+      if(!e.isIntersecting) return;
+      e.target.style.transitionDelay = (i * 60) + 'ms';
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+  // evidenzia in nav la sezione corrente
+  const links = document.querySelectorAll('header nav a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const navObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(s => navObs.observe(s));
+
+  // header scuro mentre si scorre sui progetti a sfondo nero (03, 05, 07)
+  const headerEl = document.querySelector('header');
+  ['p03','p05','p06'].forEach(id => {
+    const el = document.getElementById(id);
+    if(headerEl && el){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e => headerEl.classList.toggle('dark', e.isIntersecting));
+      }, {rootMargin:'-56px 0px -85% 0px'});
+      obs.observe(el);
+    }
+  });
+
+  // header grigio chiaro mentre si scorre sui progetti a sfondo grigio (01, 02, 04, 06)
+  ['p01','p02','p04'].forEach(id => {
+    const el = document.getElementById(id);
+    if(headerEl && el){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e => headerEl.classList.toggle('muted', e.isIntersecting));
+      }, {rootMargin:'-56px 0px -85% 0px'});
+      obs.observe(el);
+    }
+  });
+
+  // apertura/chiusura finestre disegni tecnici e video
+  document.querySelectorAll('.tech-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = document.getElementById(btn.dataset.target);
+      if(!modal) return;
+      modal.classList.add('open');
+      document.body.classList.add('tech-open');
+      const video = modal.querySelector('video');
+      if(video) video.play().catch(() => {});
+    });
+  });
+  document.querySelectorAll('.tech-modal').forEach(modal => {
+    const close = () => {
+      modal.classList.remove('open');
+      document.body.classList.remove('tech-open');
+      const video = modal.querySelector('video');
+      if(video){ video.pause(); video.currentTime = 0; }
+    };
+    modal.querySelector('.tech-close').addEventListener('click', close);
+    modal.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key !== 'Escape') return;
+    document.querySelectorAll('.tech-modal.open').forEach(m => {
+      m.classList.remove('open');
+      const video = m.querySelector('video');
+      if(video){ video.pause(); video.currentTime = 0; }
+    });
+    document.body.classList.remove('tech-open');
+  });
+</script>
+</body>
+</html>
