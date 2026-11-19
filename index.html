@@ -15,7 +15,8 @@
     --paper:#faf9f7;
     --grey-1:#8a8a86;   /* testo secondario */
     --grey-2:#d8d7d3;   /* filetti */
-    --grey-3:#efeeeb;   /* campiture */
+    --grey-3:#e8e6e1;   /* campiture */
+    --grey-4:#d7d4cd;   /* campitura piu scura */
     --ff:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
 
     --m:clamp(20px,4.5vw,72px);   /* margine di pagina */
@@ -209,7 +210,7 @@
     padding-right:calc(var(--unit)*2.5);
   }
   .index a[href="#p04"]:hover, .index a[href="#p04"]:focus-visible, .index a[href="#p04"]:active{
-    background:var(--grey-3);
+    background:var(--grey-4);
     padding-left:calc(var(--unit)*4);
   }
 
@@ -438,11 +439,18 @@
   #p02 .frame{background:#e4e2dd;}
 
   /* ---------- sezioni a sfondo grigio chiaro: progetti 01, 02, 04, 06 ---------- */
-  #p01, #p02, #p04{
+  #p01, #p02{
     background:var(--grey-3);
     scroll-margin-top:-56px;
   }
-  #p01 .frame, #p02 .frame, #p04 .frame{background:#e4e2dd;}
+  #p01 .frame, #p02 .frame{background:#e0ded8;}
+
+  /* progetto 05: grigio piu scuro, per distinguerlo dai progetti 03-04 */
+  #p04{
+    background:var(--grey-4);
+    scroll-margin-top:-56px;
+  }
+  #p04 .frame{background:#cfccc5;}
 
   /* ---------- sezioni a sfondo nero: progetti 03, 05, 07 ---------- */
   #p03, #p05, #p06{
@@ -524,9 +532,6 @@
   .tav button:focus-visible{outline:1px solid #efefec;outline-offset:4px;}
   .tav figcaption{display:flex;gap:12px;font-size:12px;color:#8a8a86;}
   .tav figcaption b{font-weight:500;color:#efefec;}
-  .tav-nav{display:flex;justify-content:space-between;align-items:center;margin-top:calc(var(--unit)*2);}
-  .tav-nav .hint{font-size:11px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:#8a8a86;}
-  .tav-nav .btns{display:flex;gap:calc(var(--unit)*1);}
 
   /* ingrandimento tavola */
   .tav-lb{
@@ -668,17 +673,16 @@
     transform:translateY(-50%);
     display:flex;flex-direction:column;align-items:center;gap:14px;
     padding:18px 0;width:44px;
-    background:none;border:1px solid rgba(255,255,255,0.22);border-radius:22px;
+    background:none;border:none;
     color:#efefec;font-family:inherit;cursor:pointer;
-    transition:left .9s cubic-bezier(.3,.7,.2,1), border-color .25s ease, background .25s ease;
+    transition:left .9s cubic-bezier(.3,.7,.2,1);
   }
   .book-stage.is-open .book-flip{left:calc(50% + var(--pw) + 28px);}
-  .book-flip:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.55);}
   .book-flip:focus-visible{outline:1px solid #efefec;outline-offset:3px;}
-  .book-flip .dot{width:6px;height:6px;border-radius:50%;background:#efefec;animation:hintPulse 1.6s ease-in-out infinite;}
-  .book-flip .txt{writing-mode:vertical-rl;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#c4c2ba;}
-  .book-flip .ar{font-size:15px;line-height:1;transition:transform .25s ease;}
-  .book-flip:hover .ar{transform:translateX(2px);}
+  .book-flip .dot{width:6px;height:6px;border-radius:50%;background:#efefec;transition:transform .25s ease;}
+  .book-flip:hover .dot{transform:scale(1.25);}
+  .book-flip .txt{writing-mode:vertical-rl;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#c4c2ba;transition:color .25s ease;}
+  .book-flip:hover .txt{color:#efefec;}
 
   /* comandi */
   .book-controls{
@@ -754,6 +758,72 @@
   #p06 .p-side.side-hidden{transition:opacity .12s ease, visibility .12s ease;}
   #p06 .p-side.side-hidden{opacity:0;visibility:hidden;pointer-events:none;}
 
+  /* ---------- immagine con video al passaggio del mouse ---------- */
+  .hv .frame{position:relative;}
+  .hv .frame video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:0;transition:opacity .55s ease;pointer-events:none;
+  }
+  .hv.is-playing .frame video{opacity:1;}
+  .hv .hv-hint{
+    display:inline-block;margin-left:10px;font-size:11px;letter-spacing:0.08em;
+    text-transform:uppercase;color:#6f6e6a;transition:opacity .35s ease;
+  }
+  .hv.is-playing .hv-hint{opacity:0;}
+  @media(hover:none){ .hv .hv-hint{display:none;} }
+
+  /* ---------- fotografia (analogico) ---------- */
+  .photo{
+    background:var(--ink);
+    color:#efefec;
+    padding-top:calc(var(--unit)*14);
+    padding-bottom:calc(var(--unit)*14);
+    scroll-margin-top:-56px;
+  }
+  .ph-head{grid-column:1 / 13;display:grid;grid-template-columns:repeat(12,1fr);gap:var(--col-gap);align-items:end;}
+  .ph-head .ph-title{grid-column:1 / 8;display:flex;flex-direction:column;gap:calc(var(--unit)*2);}
+  .ph-head .label{color:#9a9a94;}
+  .ph-head h2{font-size:clamp(24px,2.6vw,36px);font-weight:500;line-height:1.1;letter-spacing:-0.03em;}
+  .ph-head h2 .quiet{color:#6f6e6a;}
+  .ph-head .ph-note{grid-column:8 / 13;display:flex;flex-direction:column;gap:calc(var(--unit)*2);
+    font-size:14px;line-height:1.6;color:#9a9a94;max-width:46ch;}
+  .ph-head .ph-note p{margin:0;}
+
+  .ph-series{grid-column:1 / 13;margin-top:calc(var(--unit)*10);}
+  .ph-series + .ph-series{margin-top:calc(var(--unit)*12);}
+  .ph-sh{display:flex;align-items:baseline;gap:calc(var(--unit)*3);flex-wrap:wrap;
+    padding-bottom:calc(var(--unit)*2);border-bottom:1px solid rgba(255,255,255,0.14);}
+  .ph-sh h3{font-size:18px;font-weight:500;letter-spacing:-0.01em;color:#efefec;}
+  .ph-sh .ph-meta{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#8a8a86;}
+
+  .ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--col-gap);
+    align-items:start;margin-top:calc(var(--unit)*4);}
+  .ph-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .ph-grid.cinque{grid-template-columns:repeat(6,1fr);}
+  .ph-grid.cinque figure{grid-column:span 2;}
+  .ph-grid.cinque figure:nth-child(4){grid-column:2 / 4;}
+  .ph-grid .wide{grid-column:1 / -1;}
+  .ph-grid.uniform button{aspect-ratio:1/1;}
+  .ph-grid.uniform img{width:100%;height:100%;object-fit:cover;object-position:center;}
+  .ph-grid figure{margin:0;}
+  .ph-grid button{display:block;width:100%;padding:0;border:none;background:#161615;cursor:zoom-in;overflow:hidden;}
+  .ph-grid img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.22,.9,.25,1), opacity .4s ease;}
+  .ph-grid button:hover img{transform:scale(1.02);}
+  .ph-grid button:focus-visible{outline:1px solid #efefec;outline-offset:3px;}
+
+  /* ingrandimento foto */
+  .ph-lb{position:fixed;inset:0;z-index:270;background:#0b0b0a;
+    opacity:0;visibility:hidden;transition:opacity .35s ease;
+    display:flex;align-items:center;justify-content:center;}
+  .ph-lb.open{opacity:1;visibility:visible;}
+  .ph-lb img{max-width:92vw;max-height:88vh;width:auto;height:auto;display:block;}
+  .ph-lb .lb-bar{position:fixed;top:0;left:0;right:0;z-index:2;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:calc(var(--unit)*2) var(--m);
+    background:linear-gradient(to bottom, rgba(11,11,10,0.9), rgba(11,11,10,0));}
+  .ph-lb .lb-bar .t{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#9a9a94;}
+  .ph-lb .lb-bar .t b{font-weight:500;color:#efefec;}
+
   /* ---------- contatti ---------- */
   footer{
     border-top:1px solid var(--grey-2);
@@ -808,6 +878,10 @@
     .tech-pair{grid-template-columns:1fr;}
     .tech-trio{grid-template-columns:1fr;}
     .p-figure.solo-small{max-width:100%;}
+    .ph-head .ph-title, .ph-head .ph-note{grid-column:1 / 13;}
+    .ph-grid{grid-template-columns:repeat(2,1fr);}
+    .ph-grid.cinque{grid-template-columns:repeat(2,1fr);}
+    .ph-grid.cinque figure, .ph-grid.cinque figure:nth-child(4){grid-column:auto;}
     .p-diagram{grid-template-columns:1fr;gap:calc(var(--unit)*4);}
     footer .claim{grid-column:1 / 13;}
     footer .contacts{grid-column:1 / 13;margin-top:calc(var(--unit)*6);}
@@ -825,6 +899,7 @@
   <nav>
     <a href="#about">Studio</a>
     <a href="#work">Progetti</a>
+    <a href="#photo">Fotografia</a>
     <a href="#contact">Contatti</a>
   </nav>
 </header>
@@ -855,18 +930,18 @@
     <p class="rv">Amo viaggiare e scoprire posti, culture e abitudini diverse: ogni esperienza diventa un modo per arricchire la mia visione creativa. La fotografia è una delle mie passioni più grandi e mi accompagna in ogni viaggio; scattare mi aiuta a osservare meglio la realtà, a cogliere atmosfere e dettagli che porto direttamente nel mio processo di progettazione.</p>
     <p class="rv">Con questo portfolio desidero mostrare il mio modo di lavorare, ciò che mi ispira e ciò che cerco di trasmettere attraverso i miei progetti.</p>
   </div>
-  <div class="portrait rv"><img src="assets/portrait.jpg" alt="Giorgia d'Onofrio — ritratto"></div>
+  <div class="portrait rv"><img src="assets/portrait.jpg" alt="Giorgia d'Onofrio — ritratto" width="1088" height="1446"></div>
 </section>
 
 <section class="index grid rule" id="work">
   <span class="label rv">Progetti selezionati</span>
   <ol class="rv">
+    <li><a href="#p03"><span class="n">01</span><span class="t">Villaggio Globale — Atmosfere Parallele</span><span class="c">Allestimento — MACRO, Roma</span></a></li>
+    <li><a href="#p03t"><span class="n">02</span><span class="t">Atmosfere Parallele — Il progetto in 3 tavole</span><span class="c">Tavole grafiche — sintesi del progetto 01</span></a></li>
     <li class="index-pair">
-      <a href="#p01"><span class="n">01</span><span class="t">Ritual Concrete</span><span class="c">Wellness — Villaggio Olimpico, Roma</span></a>
-      <a href="#p02"><span class="n">02</span><span class="t">Ritual Concrete — Cortometraggio Horror</span><span class="c">Video sperimentale — stessa architettura del progetto 01</span></a>
+      <a href="#p01"><span class="n">03</span><span class="t">Ritual Concrete</span><span class="c">Wellness — Villaggio Olimpico, Roma</span></a>
+      <a href="#p02"><span class="n">04</span><span class="t">Ritual Concrete — Cortometraggio Horror</span><span class="c">Video sperimentale — stessa architettura del progetto 03</span></a>
     </li>
-    <li><a href="#p03"><span class="n">03</span><span class="t">Villaggio Globale — Atmosfere Parallele</span><span class="c">Allestimento — MACRO, Roma</span></a></li>
-    <li><a href="#p03t"><span class="n">04</span><span class="t">Atmosfere Parallele — Il progetto in 3 tavole</span><span class="c">Tavole grafiche — sintesi del progetto 03</span></a></li>
     <li><a href="#p04"><span class="n">05</span><span class="t">Ristrutturazione Appartamento con Impianti</span><span class="c">Via San Francesco d'Assisi, Avellino</span></a></li>
     <li><a href="#p05"><span class="n">06</span><span class="t">Villa Sperimentale — Rendering in Unreal Engine</span><span class="c">Formazione software — Unreal Engine</span></a></li>
     <li><a href="#p06"><span class="n">07</span><span class="t">MISBHV — Brand Analysis & Product Design</span><span class="c">Branding, prodotto, fotografia e book di ricerca</span></a></li>
@@ -875,9 +950,85 @@
 
 <main>
 
-  <article class="project grid" id="p01">
+  <article class="project grid" id="p03">
     <div class="p-side">
       <span class="p-num rv">01 / 07</span>
+      <h2 class="p-title rv">Villaggio Globale — Atmosfere Parallele</h2>
+      <div class="p-meta rv">
+        <div class="row"><span>Tipologia</span><span>Allestimento museale / scenografia</span></div>
+        <div class="row"><span>Luogo</span><span>MACRO, Roma</span></div>
+        <div class="row"><span>Anno</span><span>2026</span></div>
+        <div class="row"><span>Ruolo</span><span>Concept, scenografia, struttura</span></div>
+      </div>
+      <button type="button" class="tech-link rv" data-target="tech-p03">Disegni tecnici</button>
+    </div>
+    <div class="p-main">
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-1.jpg" alt="Villaggio Globale — assonometria della struttura, il foyer del MACRO e ciò che si va a inglobare" width="1800" height="1013"></div></figure>
+      <div class="p-text rv">
+        <div class="p-block">
+          <span class="label">Brief</span>
+          <p>Il progetto trasforma il cortile interno del MACRO in un hub culturale internazionale: ogni mese viene ricreata una città diversa attraverso una scenografia immersiva, capace di restituirne atmosfera, identità e immaginario culturale — un viaggio urbano alternativo al viaggio fisico, in risposta all'overtourism e al tema della sostenibilità culturale.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Approccio</span>
+          <p>Una struttura in tubolare di acciaio zincato verniciato a polvere e cavi metallici si ingloba nella facciata del MACRO, replicandone l'astrazione secondo il concept "atmosfere parallele", e sorregge scenografie diverse mese per mese. Le città vengono scelte seguendo i meridiani terrestri: a ogni mese corrisponde un meridiano specifico, all'interno del quale viene estratta casualmente la città da rappresentare, unendo la rigidità della mappa all'imprevedibilità del caso. Tra le atmosfere sviluppate, Tokyo (Giappone, luglio — meridiano 139° est) con insegne LED, specchi e proiezioni, Il Cairo (Egitto, marzo — meridiano 31° est) costruito sul dualismo tra natura e città, e Vík í Mýrdal (Islanda — meridiano 19° ovest), dove un led wall a tutta parete proietta la cascata di giorno e l'aurora boreale di notte, mentre a terra la sabbia nera e blocchi di ghiaccio alti quasi un metro riportano chi entra sulla spiaggia.</p>
+        </div>
+        <div class="p-block">
+          <span class="label">Risultato</span>
+          <p>Riqualificare non significa solo restituire uno spazio: significa dargli la capacità di diventare, ogni volta, qualcos'altro.</p>
+        </div>
+      </div>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-macro-0.jpg" alt="Villaggio Globale — modellazione del cortile del MACRO allo stato attuale" loading="lazy" width="1800" height="1013"></div><figcaption>Prima fase — modellazione del MACRO allo stato attuale.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-2.jpg" alt="Villaggio Globale — la struttura inglobata nel cortile del MACRO" width="1800" height="981"></div><figcaption>La struttura inglobata nel cortile del MACRO.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-1.jpg" alt="Villaggio Globale — scenografia Tokyo, il passaggio sospeso tra le insegne al neon" loading="lazy" width="1800" height="1013"></div><figcaption>Tokyo, luglio — meridiano 139° est.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-2.jpg" alt="Villaggio Globale — scenografia Tokyo, la quota inferiore tra le insegne" loading="lazy" width="1671" height="941"></div><figcaption>La quota inferiore del cortile, tra le insegne e il flusso dei visitatori.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-3.jpg" alt="Villaggio Globale — scenografia Tokyo, i neon riflessi sulla copertura vetrata" loading="lazy" width="1672" height="916"></div><figcaption>I neon riflessi sulla copertura vetrata del cortile.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-4.jpg" alt="Villaggio Globale — scenografia Tokyo, il fronte di insegne verticali" loading="lazy" width="1800" height="1210"></div><figcaption>Il fronte di insegne verticali sul passaggio sospeso.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-cairo-1.jpg" alt="Villaggio Globale — scenografia Il Cairo, vista d'insieme del cortile con i teli sospesi" loading="lazy" width="1672" height="941"></div><figcaption>Il Cairo, marzo — meridiano 31° est.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-cairo-2.jpg" alt="Villaggio Globale — scenografia Il Cairo, i teli e la sabbia a quota terra" loading="lazy" width="1672" height="941"></div><figcaption>I teli e la sabbia, a quota terra.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-cairo-3.jpg" alt="Villaggio Globale — scenografia Il Cairo, vista verso l'alto tra i teli" loading="lazy" width="1672" height="941"></div><figcaption>Vista verso l'alto, camminando nella scenografia.</figcaption></figure>
+
+      <figure class="p-figure auto rv hv"><div class="frame"><img src="assets/p02-islanda-1.jpg" alt="Villaggio Globale — scenografia Vík í Mýrdal, led wall con la cascata, sabbia nera e blocchi di ghiaccio" loading="lazy" width="1672" height="1115"><video data-src="assets/islanda-animata.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div><figcaption>Vík í Mýrdal, Islanda — meridiano 19° ovest: il led wall di giorno, la sabbia nera e i blocchi di ghiaccio.<span class="hv-hint">Passa il mouse</span></figcaption></figure>
+
+      <figure class="p-figure auto rv hv"><div class="frame"><img src="assets/p02-islanda-2.jpg" alt="Villaggio Globale — scenografia Vík í Mýrdal di notte, l'aurora boreale sul led wall" loading="lazy" width="1672" height="1115"><video data-src="assets/islanda-notte-animata.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div><figcaption>La stessa sala di notte: il led wall passa all'aurora boreale.<span class="hv-hint">Passa il mouse</span></figcaption></figure>
+
+      <div class="p-pair rv">
+        <button type="button" class="tech-link video-tile" data-target="video-p03">
+          <span class="video-tile-label">Video</span>
+          <span class="video-tile-sub">Guarda il video del progetto</span>
+        </button>
+      </div>
+    </div>
+  </article>
+  <article class="project grid" id="p03t">
+    <div class="tav-head">
+      <div class="th-title">
+        <span class="p-num rv">02 / 07</span>
+        <h2 class="rv">Atmosfere Parallele<span class="quiet"> — Il progetto in 3 tavole</span></h2>
+      </div>
+      <p class="th-note rv">Le tavole grafiche che sintetizzano Villaggio Globale: dall'inquadramento al MACRO ai disegni tecnici, fino alla prima atmosfera, Tokio. Scorri di lato e clicca su una tavola per leggerla.</p>
+    </div>
+    <div class="tav-wrap rv">
+      <div class="tav-strip" tabindex="0" aria-label="Tavole di progetto">
+        <figure class="tav"><button type="button" data-i="0" aria-label="Apri tavola 1: Inquadramento"><img src="assets/tavole/tavola-02.jpg" alt="Tavola 1 — Inquadramento. Il MACRO nel quartiere, tra via Nizza e via Cagliari." loading="lazy" draggable="false" width="1300" height="1820"></button><figcaption><span>01</span><b>Inquadramento</b></figcaption></figure>
+        <figure class="tav"><button type="button" data-i="1" aria-label="Apri tavola 2: Disegni tecnici"><img src="assets/tavole/tavola-04.jpg" alt="Tavola 2 — Disegni tecnici. Pianta del MACRO, sezione A-A′ e aggancio a parete." loading="lazy" draggable="false" width="1300" height="1839"></button><figcaption><span>02</span><b>Disegni tecnici</b></figcaption></figure>
+        <figure class="tav"><button type="button" data-i="2" aria-label="Apri tavola 3: Tokio"><img src="assets/tavole/tavola-05.jpg" alt="Tavola 3 — Tokio. La prima atmosfera: insegne, LED, specchi e proiezioni." loading="lazy" draggable="false" width="1300" height="1839"></button><figcaption><span>03</span><b>Tokio</b></figcaption></figure>
+      </div>
+    </div>
+  </article>
+
+  <article class="project grid" id="p01">
+    <div class="p-side">
+      <span class="p-num rv">03 / 07</span>
       <h2 class="p-title rv">Ritual Concrete</h2>
       <div class="p-meta rv">
         <div class="row"><span>Tipologia</span><span>Wellness / Spa</span></div>
@@ -886,10 +1037,10 @@
         <div class="row"><span>Materiali</span><span>Cemento</span></div>
         <div class="row"><span>Ruolo</span><span>Progetto e concept</span></div>
       </div>
-      <button type="button" class="tech-link rv" data-target="intervento-p01">Disegno intervento<span class="arrow">→</span></button>
+      <button type="button" class="tech-link rv" data-target="intervento-p01">Disegno intervento</button>
     </div>
     <div class="p-main">
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-main.jpg" alt="Ritual Concrete — vista principale della piscina tra gli archi in cemento"></div></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-main.jpg" alt="Ritual Concrete — vista principale della piscina tra gli archi in cemento" width="1254" height="1254"></div></figure>
       <div class="p-text rv">
         <div class="p-block">
           <span class="label">Brief</span>
@@ -905,23 +1056,23 @@
         </div>
       </div>
       <div class="p-pair rv">
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-1.jpg" alt="Ritual Concrete — area bar affacciata sulla piscina"></div><figcaption>Area bar e relax vista dagli archi.</figcaption></figure>
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-2.jpg" alt="Ritual Concrete — percorso tra gli archi verso la zona docce"></div><figcaption>Percorso verso la zona docce.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-1.jpg" alt="Ritual Concrete — area bar affacciata sulla piscina" width="1254" height="1254"></div><figcaption>Area bar e relax vista dagli archi.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p01-detail-2.jpg" alt="Ritual Concrete — percorso tra gli archi verso la zona docce" width="1254" height="1254"></div><figcaption>Percorso verso la zona docce.</figcaption></figure>
       </div>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-final.jpg" alt="Ritual Concrete — bagno turco con pareti in mosaico verde"></div><figcaption>Bagno turco, finiture in mosaico verde.</figcaption></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p01-final.jpg" alt="Ritual Concrete — bagno turco con pareti in mosaico verde" width="1254" height="1254"></div><figcaption>Bagno turco, finiture in mosaico verde.</figcaption></figure>
     </div>
   </article>
   <article class="project grid" id="p02">
     <div class="p-side">
-      <span class="p-num rv">02 / 07</span>
+      <span class="p-num rv">04 / 07</span>
       <h2 class="p-title rv">Ritual Concrete — Cortometraggio Horror</h2>
       <div class="p-meta rv">
         <div class="row"><span>Tipologia</span><span>Video sperimentale — cortometraggio horror</span></div>
-        <div class="row"><span>Riferimento</span><span>Stessa architettura del progetto 01 (Ritual Concrete)</span></div>
+        <div class="row"><span>Riferimento</span><span>Stessa architettura del progetto 03 (Ritual Concrete)</span></div>
         <div class="row"><span>Anno</span><span>2024 — 2025</span></div>
         <div class="row"><span>Ruolo</span><span>Regia, ripresa e montaggio</span></div>
       </div>
-      <button type="button" class="tech-link rv" data-target="video-p02">Guarda il video<span class="arrow">→</span></button>
+      <button type="button" class="tech-link rv" data-target="video-p02">Guarda il video</button>
     </div>
     <div class="p-main">
       <div class="p-text rv">
@@ -940,78 +1091,8 @@
       </div>
       <button type="button" class="tech-link video-tile no-frame rv" data-target="video-p02">
         <span class="video-tile-label">Video</span>
-        <span class="video-tile-sub">Guarda il cortometraggio<span class="arrow">→</span></span>
+        <span class="video-tile-sub">Guarda il cortometraggio</span>
       </button>
-    </div>
-  </article>
-  <article class="project grid" id="p03">
-    <div class="p-side">
-      <span class="p-num rv">03 / 07</span>
-      <h2 class="p-title rv">Villaggio Globale — Atmosfere Parallele</h2>
-      <div class="p-meta rv">
-        <div class="row"><span>Tipologia</span><span>Allestimento museale / scenografia</span></div>
-        <div class="row"><span>Luogo</span><span>MACRO, Roma</span></div>
-        <div class="row"><span>Anno</span><span>2026</span></div>
-        <div class="row"><span>Ruolo</span><span>Concept, scenografia, struttura</span></div>
-      </div>
-      <button type="button" class="tech-link rv" data-target="tech-p03">Disegni tecnici<span class="arrow">→</span></button>
-    </div>
-    <div class="p-main">
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-1.jpg" alt="Villaggio Globale — assonometria della struttura, il foyer del MACRO e ciò che si va a inglobare"></div></figure>
-      <div class="p-text rv">
-        <div class="p-block">
-          <span class="label">Brief</span>
-          <p>Il progetto trasforma il cortile interno del MACRO in un hub culturale internazionale: ogni mese viene ricreata una città diversa attraverso una scenografia immersiva, capace di restituirne atmosfera, identità e immaginario culturale — un viaggio urbano alternativo al viaggio fisico, in risposta all'overtourism e al tema della sostenibilità culturale.</p>
-        </div>
-        <div class="p-block">
-          <span class="label">Approccio</span>
-          <p>Una struttura in tubolare di acciaio zincato verniciato a polvere e cavi metallici si ingloba nella facciata del MACRO, replicandone l'astrazione secondo il concept "atmosfere parallele", e sorregge scenografie diverse mese per mese. Le città vengono scelte seguendo i meridiani terrestri: a ogni mese corrisponde un meridiano specifico, all'interno del quale viene estratta casualmente la città da rappresentare, unendo la rigidità della mappa all'imprevedibilità del caso. Tra le atmosfere sviluppate, Tokyo (Giappone, luglio — meridiano 139° est) con insegne LED, specchi e proiezioni, e Il Cairo (Egitto, marzo — meridiano 31° est) costruito sul dualismo tra natura e città.</p>
-        </div>
-        <div class="p-block">
-          <span class="label">Risultato</span>
-          <p>Riqualificare non significa solo restituire uno spazio: significa dargli la capacità di diventare, ogni volta, qualcos'altro.</p>
-        </div>
-      </div>
-
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-struttura-2.jpg" alt="Villaggio Globale — la struttura inglobata nel cortile del MACRO"></div><figcaption>La struttura inglobata nel cortile del MACRO.</figcaption></figure>
-
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-tokyo-1.jpg" alt="Villaggio Globale — scenografia Tokyo, corridoio di insegne al neon"></div><figcaption>Tokyo, luglio — meridiano 139° est.</figcaption></figure>
-      <div class="p-pair rv">
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-tokyo-2.jpg" alt="Villaggio Globale — scenografia Tokyo, insegne sospese"></div><figcaption>Insegne sospese e proiezioni specchiate.</figcaption></figure>
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-tokyo-3.jpg" alt="Villaggio Globale — scenografia Tokyo, vista dal basso delle insegne"></div><figcaption>Vista dal basso, tra le insegne LED.</figcaption></figure>
-      </div>
-
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p02-cairo-2.jpg" alt="Villaggio Globale — scenografia Il Cairo, vista d'insieme del cortile"></div><figcaption>Il Cairo, marzo — meridiano 31° est.</figcaption></figure>
-      <div class="p-pair rv">
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p02-cairo-1.jpg" alt="Villaggio Globale — scenografia Il Cairo, teli colorati e sabbia, dettaglio"></div><figcaption>Dettaglio dei teli e della sabbia.</figcaption></figure>
-        <button type="button" class="tech-link video-tile" data-target="video-p03">
-          <span class="video-tile-label">Video</span>
-          <span class="video-tile-sub">Guarda il video del progetto<span class="arrow">→</span></span>
-        </button>
-      </div>
-    </div>
-  </article>
-  <article class="project grid" id="p03t">
-    <div class="tav-head">
-      <div class="th-title">
-        <span class="p-num rv">04 / 07</span>
-        <h2 class="rv">Atmosfere Parallele<span class="quiet"> — Il progetto in 3 tavole</span></h2>
-      </div>
-      <p class="th-note rv">Le tavole grafiche che sintetizzano Villaggio Globale: dall'inquadramento al MACRO ai disegni tecnici, fino alla prima atmosfera, Tokio. Scorri di lato e clicca su una tavola per leggerla.</p>
-    </div>
-    <div class="tav-wrap rv">
-      <div class="tav-strip" tabindex="0" aria-label="Tavole di progetto">
-        <figure class="tav"><button type="button" data-i="0" aria-label="Apri tavola 1: Inquadramento"><img src="assets/tavole/tavola-02.jpg" alt="Tavola 1 — Inquadramento. Il MACRO nel quartiere, tra via Nizza e via Cagliari." loading="lazy" draggable="false"></button><figcaption><span>01</span><b>Inquadramento</b></figcaption></figure>
-        <figure class="tav"><button type="button" data-i="1" aria-label="Apri tavola 2: Disegni tecnici"><img src="assets/tavole/tavola-04.jpg" alt="Tavola 2 — Disegni tecnici. Pianta del MACRO, sezione A-A′ e aggancio a parete." loading="lazy" draggable="false"></button><figcaption><span>02</span><b>Disegni tecnici</b></figcaption></figure>
-        <figure class="tav"><button type="button" data-i="2" aria-label="Apri tavola 3: Tokio"><img src="assets/tavole/tavola-05.jpg" alt="Tavola 3 — Tokio. La prima atmosfera: insegne, LED, specchi e proiezioni." loading="lazy" draggable="false"></button><figcaption><span>03</span><b>Tokio</b></figcaption></figure>
-      </div>
-      <div class="tav-nav">
-        <span class="hint">Scorri o trascina →</span>
-        <div class="btns">
-          <button type="button" class="book-btn tav-prev" aria-label="Tavola precedente">&larr;</button>
-          <button type="button" class="book-btn tav-next" aria-label="Tavola successiva">&rarr;</button>
-        </div>
-      </div>
     </div>
   </article>
 
@@ -1037,10 +1118,10 @@
         <div class="row"><span>Anno</span><span>2025</span></div>
         <div class="row"><span>Ruolo</span><span>Progetto e impiantistica</span></div>
       </div>
-      <button type="button" class="tech-link rv" data-target="tech-p04">Disegni tecnici<span class="arrow">→</span></button>
+      <button type="button" class="tech-link rv" data-target="tech-p04">Disegni tecnici</button>
     </div>
     <div class="p-main">
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-living.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — soggiorno con cucina a vista"></div></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-living.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — soggiorno con cucina a vista" width="1600" height="900"></div></figure>
       <div class="p-text rv">
         <div class="p-block">
           <span class="label">Brief</span>
@@ -1055,9 +1136,9 @@
           <p>Un progetto che unisce la componente tecnica dell'impiantistica a quella di interior design, restituendo un appartamento riorganizzato e coerente in ogni suo ambiente, dalla distribuzione degli spazi fino al dettaglio impiantistico.</p>
         </div>
       </div>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-kitchen.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista della cucina dalla zona pranzo"></div><figcaption>Cucina, vista dalla zona pranzo.</figcaption></figure>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-bathroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista del bagno con doppio lavabo e doccia"></div><figcaption>Bagno.</figcaption></figure>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-bedroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista della camera da letto"></div><figcaption>Camera da letto.</figcaption></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-kitchen.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista della cucina dalla zona pranzo" width="1600" height="900"></div><figcaption>Cucina, vista dalla zona pranzo.</figcaption></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-bathroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista del bagno con doppio lavabo e doccia" width="1600" height="900"></div><figcaption>Bagno.</figcaption></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p03-render-bedroom.jpg" alt="Ristrutturazione Via San Francesco d'Assisi — vista della camera da letto" width="1600" height="900"></div><figcaption>Camera da letto.</figcaption></figure>
     </div>
   </article>
   <article class="project grid" id="p05">
@@ -1072,7 +1153,7 @@
       </div>
     </div>
     <div class="p-main">
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-exterior.jpg" alt="Villa sperimentale in Unreal Engine — vista esterna con copertura a sbalzo e piscina a sfioro"></div></figure>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-exterior.jpg" alt="Villa sperimentale in Unreal Engine — vista esterna con copertura a sbalzo e piscina a sfioro" width="1800" height="651"></div></figure>
       <div class="p-text rv">
         <div class="p-block">
           <span class="label">Brief</span>
@@ -1087,16 +1168,17 @@
           <p>Un primo confronto diretto con un software professionale diverso da quelli abituali: poca esperienza ma sufficiente a capirne le potenzialità nella presentazione dei progetti e ad ampliare il mio metodo di lavoro.</p>
         </div>
       </div>
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-terrace.jpg" alt="Villa sperimentale — terrazza coperta e piscina a sfioro al tramonto" loading="lazy" width="1697" height="927"></div><figcaption>Terrazza coperta e piscina a sfioro, al tramonto.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-lounge.jpg" alt="Villa sperimentale — soggiorno con vetrata a tutta altezza affacciata sul mare" loading="lazy" width="1708" height="921"></div><figcaption>Soggiorno, con la vetrata affacciata sul mare.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-library.jpg" alt="Villa sperimentale — libreria a doppio corpo con tavolo e sgabelli" loading="lazy" width="1711" height="919"></div><figcaption>Libreria e zona lettura.</figcaption></figure>
+
+      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-library-view.jpg" alt="Villa sperimentale — la libreria nello spazio chiuso in cemento" loading="lazy" width="1696" height="927"></div><figcaption>La libreria, nello spazio chiuso in cemento.</figcaption></figure>
+
       <div class="p-pair rv">
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-living.jpg" alt="Villa sperimentale — soggiorno con tappeto a righe e vista sulla scalinata in cemento"></div><figcaption>Soggiorno, con vista sulla scalinata in cemento.</figcaption></figure>
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-lounge.jpg" alt="Villa sperimentale — angolo lounge con divano in pelle e libreria"></div><figcaption>Angolo lounge, divano in pelle.</figcaption></figure>
+        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-living.jpg" alt="Villa sperimentale — soggiorno sotto la scalinata a sbalzo" loading="lazy" width="1778" height="884"></div><figcaption>Il soggiorno, sotto la scalinata a sbalzo.</figcaption></figure>
       </div>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-library.jpg" alt="Villa sperimentale — libreria a doppio corpo con tavolo e sgabelli"></div><figcaption>Libreria e zona lettura.</figcaption></figure>
-      <div class="p-pair rv">
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-covered-terrace.jpg" alt="Villa sperimentale — terrazza coperta con tavolo da pranzo affacciata sulla piscina"></div><figcaption>Terrazza coperta, affacciata sulla piscina.</figcaption></figure>
-        <figure class="p-figure auto"><div class="frame"><img src="assets/p04-render-library-view.jpg" alt="Villa sperimentale — libreria con vista sulle pareti esterne in cemento"></div><figcaption>Libreria, con affaccio sul cortile esterno.</figcaption></figure>
-      </div>
-      <figure class="p-figure auto rv"><div class="frame"><img src="assets/p04-render-terrace.jpg" alt="Villa sperimentale — vista dagli interni verso la piscina"></div></figure>
     </div>
   </article>
   <article class="project grid" id="p06">
@@ -1117,7 +1199,7 @@
         <button type="button" class="book-btn book-close" aria-label="Chiudi schermo intero">&times;</button>
         <div class="book-viewport">
           <div class="book at-front" aria-live="polite"></div>
-          <button type="button" class="book-flip" aria-label="Sfoglia il book"><span class="dot"></span><span class="txt">Sfoglia</span><span class="ar">→</span></button>
+          <button type="button" class="book-flip" aria-label="Sfoglia il book"><span class="dot"></span><span class="txt">Sfoglia</span></button>
         </div>
         <div class="book-controls">
           <div class="book-nav">
@@ -1154,6 +1236,83 @@
 
 </main>
 
+<section class="photo grid" id="photo">
+  <div class="ph-head">
+    <div class="ph-title">
+      <span class="label rv">Fotografia</span>
+      <h2 class="rv">Analogico<span class="quiet"> — una passione su pellicola</span></h2>
+    </div>
+    <div class="ph-note rv">
+      <p>Ho deciso di inserire qui qualcosa che fa parte di me da molto prima dei progetti: la fotografia analogica. Scatto in pellicola perché mi obbliga a decidere — nessuna anteprima, nessuna raffica, nessuna seconda possibilità. Quello che resta è ciò che ho scelto di inquadrare e il modo in cui ho scelto di farlo: dove mi metto, cosa lascio fuori, quanta luce accetto.</p>
+      <p>È lo stesso gesto che ritrovo quando imposto una camera in un render: decidere il punto di vista è già metà del progetto. Per questo queste foto stanno accanto al resto e non altrove — non sono un lavoro, ma raccontano come guardo.</p>
+      <p>Clicca su una foto per ingrandirla.</p>
+    </div>
+  </div>
+
+  <div class="ph-series rv">
+    <div class="ph-sh">
+      <h3>Svizzera</h3>
+      <span class="ph-meta">Flims, 2022 — Olympus</span>
+    </div>
+    <div class="ph-grid">
+        <figure><button type="button" data-ph="0" aria-label="Ingrandisci: Snowboarder seduto sulla neve, Flims"><img src="assets/foto/svizzera-01.jpg" alt="Snowboarder seduto sulla neve, Flims" loading="lazy" draggable="false" width="945" height="1136"></button></figure>
+        <figure><button type="button" data-ph="1" aria-label="Ingrandisci: Tavoli di un rifugio con vista sulle cime innevate, Flims"><img src="assets/foto/svizzera-02.jpg" alt="Tavoli di un rifugio con vista sulle cime innevate, Flims" loading="lazy" draggable="false" width="945" height="1138"></button></figure>
+        <figure><button type="button" data-ph="2" aria-label="Ingrandisci: Snowboarder e impianti di risalita sul pendio, Flims"><img src="assets/foto/svizzera-03.jpg" alt="Snowboarder e impianti di risalita sul pendio, Flims" loading="lazy" draggable="false" width="945" height="1136"></button></figure>
+    </div>
+  </div>
+
+  <div class="ph-series rv">
+    <div class="ph-sh">
+      <h3>Berlino, città</h3>
+      <span class="ph-meta">Berlino — analogico</span>
+    </div>
+    <div class="ph-grid">
+        <figure><button type="button" data-ph="0" aria-label="Ingrandisci: Gendarmenmarkt e la cupola del Deutscher Dom, Berlino"><img src="assets/foto/berlino-citta-01.jpg" alt="Gendarmenmarkt e la cupola del Deutscher Dom, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure><button type="button" data-ph="1" aria-label="Ingrandisci: Il Berliner Dom visto dall'orologio di Karl-Liebknecht-Strasse, Berlino"><img src="assets/foto/berlino-citta-02.jpg" alt="Il Berliner Dom visto dall'orologio di Karl-Liebknecht-Strasse, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure><button type="button" data-ph="2" aria-label="Ingrandisci: East Side Gallery, il muro e una bicicletta, Berlino"><img src="assets/foto/berlino-citta-03.jpg" alt="East Side Gallery, il muro e una bicicletta, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure><button type="button" data-ph="3" aria-label="Ingrandisci: Bancarella di libri usati davanti alla targa di Max Planck, Berlino"><img src="assets/foto/berlino-citta-04.jpg" alt="Bancarella di libri usati davanti alla targa di Max Planck, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure><button type="button" data-ph="4" aria-label="Ingrandisci: Insegne all'ingresso di un locale a Kreuzberg, Berlino"><img src="assets/foto/berlino-citta-05.jpg" alt="Insegne all'ingresso di un locale a Kreuzberg, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure><button type="button" data-ph="5" aria-label="Ingrandisci: Due passanti in Pariser Platz, Berlino"><img src="assets/foto/berlino-citta-06.jpg" alt="Due passanti in Pariser Platz, Berlino" loading="lazy" draggable="false" width="1023" height="1545"></button></figure>
+        <figure class="wide"><button type="button" data-ph="6" aria-label="Ingrandisci: Musicisti di strada davanti a un graffito, Berlino"><img src="assets/foto/berlino-citta-07.jpg" alt="Musicisti di strada davanti a un graffito, Berlino" loading="lazy" draggable="false" width="1545" height="1024"></button></figure>
+    </div>
+  </div>
+  <div class="ph-series rv">
+    <div class="ph-sh">
+      <h3>Berlino, nightlife</h3>
+      <span class="ph-meta">Berlino — analogico</span>
+    </div>
+    <div class="ph-grid cols-2 uniform">
+        <figure><button type="button" data-ph="0" aria-label="Ingrandisci: Ritratto in maglia a rete e choker, Berlino"><img src="assets/foto/berlino-night-01.jpg" alt="Ritratto in maglia a rete e choker, Berlino" loading="lazy" draggable="false" width="1024" height="1197"></button></figure>
+        <figure><button type="button" data-ph="1" aria-label="Ingrandisci: Ritratto con corsetto in vernice e guanti lunghi, Berlino"><img src="assets/foto/berlino-night-02.jpg" alt="Ritratto con corsetto in vernice e guanti lunghi, Berlino" loading="lazy" draggable="false" width="1024" height="1282"></button></figure>
+        <figure><button type="button" data-ph="2" aria-label="Ingrandisci: Ritratto in rete nera seduta sulla poltrona, Berlino"><img src="assets/foto/berlino-night-03.jpg" alt="Ritratto in rete nera seduta sulla poltrona, Berlino" loading="lazy" draggable="false" width="1009" height="950"></button></figure>
+        <figure><button type="button" data-ph="3" aria-label="Ingrandisci: Ritratto seduto al tavolino, calze a rete, Berlino"><img src="assets/foto/berlino-night-04.jpg" alt="Ritratto seduto al tavolino, calze a rete, Berlino" loading="lazy" draggable="false" width="1023" height="825"></button></figure>
+    </div>
+  </div>
+
+  <div class="ph-series rv">
+    <div class="ph-sh">
+      <h3>MISBHV</h3>
+      <span class="ph-meta">Shooting per il progetto — analogico</span>
+    </div>
+    <div class="ph-grid">
+        <figure><button type="button" data-ph="0" aria-label="Ingrandisci: Ritratto in piedi sotto il cavalcavia, Berlino"><img src="assets/foto/misbhv-01.jpg" alt="Ritratto in piedi sotto il cavalcavia, Berlino" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+        <figure><button type="button" data-ph="1" aria-label="Ingrandisci: Ritratto accovacciata tra i detriti, Berlino"><img src="assets/foto/misbhv-02.jpg" alt="Ritratto accovacciata tra i detriti, Berlino" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+        <figure><button type="button" data-ph="2" aria-label="Ingrandisci: Dettaglio della stampa sul retro della t-shirt MISBHV"><img src="assets/foto/misbhv-03.jpg" alt="Dettaglio della stampa sul retro della t-shirt MISBHV" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+        <figure><button type="button" data-ph="3" aria-label="Ingrandisci: Ritratto frontale davanti al muro in blocchi di cemento"><img src="assets/foto/misbhv-04.jpg" alt="Ritratto frontale davanti al muro in blocchi di cemento" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+        <figure><button type="button" data-ph="4" aria-label="Ingrandisci: Dettaglio del top MISBHV"><img src="assets/foto/misbhv-05.jpg" alt="Dettaglio del top MISBHV, ritratto ravvicinato" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+        <figure><button type="button" data-ph="5" aria-label="Ingrandisci: Ritratto accovacciata contro il muro in blocchi di cemento"><img src="assets/foto/misbhv-06.jpg" alt="Ritratto accovacciata contro il muro in blocchi di cemento" loading="lazy" draggable="false" width="1070" height="1600"></button></figure>
+    </div>
+  </div>
+</section>
+
+<div class="ph-lb" role="dialog" aria-modal="true" aria-label="Foto ingrandita">
+  <div class="lb-bar">
+    <span class="t"><b class="phlb-name"></b> <span class="phlb-count"></span></span>
+    <button type="button" class="book-btn phlb-close" aria-label="Chiudi">&times;</button>
+  </div>
+  <img alt="">
+</div>
+
 <!-- ---------- disegni tecnici: finestre a schermo intero ---------- -->
 <div class="tech-modal" id="tech-p03">
   <button type="button" class="tech-close" aria-label="Chiudi">&times;</button>
@@ -1170,15 +1329,15 @@
     <div class="tech-group" id="tech-p03-struttura">
       <span class="label">Struttura</span>
       <figure>
-        <img src="assets/p03-tech-analisi-compositiva.png" alt="Analisi compositiva della facciata del MACRO e concept Atmosfere Parallele">
+        <img src="assets/p03-tech-analisi-compositiva.png" alt="Analisi compositiva della facciata del MACRO e concept Atmosfere Parallele" width="4000" height="2250">
         <figcaption>Analisi compositiva — dalla facciata del MACRO al concept Atmosfere Parallele.</figcaption>
       </figure>
       <figure>
-        <img src="assets/p03-tech-struttura-macro.png" alt="Come si sostiene al MACRO — sezione A-A' e dettagli costruttivi della struttura">
+        <img src="assets/p03-tech-struttura-macro.png" alt="Come si sostiene al MACRO — sezione A-A' e dettagli costruttivi della struttura" width="4000" height="2250">
         <figcaption>Come si sostiene al MACRO — sezione A-A' e dettagli costruttivi.</figcaption>
       </figure>
       <figure>
-        <img src="assets/p03-tech-immersione.png" alt="Come immerge lo spettatore e come sorregge le diverse scenografie — prospetto scala 1:200">
+        <img src="assets/p03-tech-immersione.png" alt="Come immerge lo spettatore e come sorregge le diverse scenografie — prospetto scala 1:200" width="4000" height="2250">
         <figcaption>Come immerge lo spettatore, come sorregge le scenografie — prospetto scala 1:200.</figcaption>
       </figure>
     </div>
@@ -1187,11 +1346,11 @@
       <span class="label">Scenografie</span>
       <div class="tech-pair">
         <figure>
-          <img src="assets/p03-tech-tokyo.png" alt="Disegni tecnici della scenografia di Tokyo, sezioni nel contesto">
+          <img src="assets/p03-tech-tokyo.png" alt="Disegni tecnici della scenografia di Tokyo, sezioni nel contesto" width="4000" height="2250">
           <figcaption>Tokyo.</figcaption>
         </figure>
         <figure>
-          <img src="assets/p03-tech-cairo.jpg" alt="Disegni tecnici della scenografia del Cairo, sezioni nel contesto">
+          <img src="assets/p03-tech-cairo.jpg" alt="Disegni tecnici della scenografia del Cairo, sezioni nel contesto" width="4000" height="2250">
           <figcaption>Cairo.</figcaption>
         </figure>
       </div>
@@ -1220,38 +1379,38 @@
     <div class="tech-group">
       <span class="label">Ante e post opera</span>
       <div class="tech-pair">
-        <figure><img src="assets/p04-tech-ante.png" alt="Pianta ante opera, evidenziata in giallo"><figcaption>Ante opera.</figcaption></figure>
-        <figure><img src="assets/p04-tech-post.png" alt="Pianta post opera, evidenziata in rosso"><figcaption>Post opera.</figcaption></figure>
+        <figure><img src="assets/p04-tech-ante.png" alt="Pianta ante opera, evidenziata in giallo" width="1817" height="1372"><figcaption>Ante opera.</figcaption></figure>
+        <figure><img src="assets/p04-tech-post.png" alt="Pianta post opera, evidenziata in rosso" width="1824" height="1364"><figcaption>Post opera.</figcaption></figure>
       </div>
     </div>
 
     <div class="tech-group">
       <span class="label">Dettagli sezione</span>
-      <figure><img src="assets/p04-tech-dettagli.png" alt="Dettagli costruttivi in sezione"><figcaption>Dettagli costruttivi in sezione.</figcaption></figure>
+      <figure><img src="assets/p04-tech-dettagli.png" alt="Dettagli costruttivi in sezione" width="1818" height="417"><figcaption>Dettagli costruttivi in sezione.</figcaption></figure>
     </div>
 
     <div class="tech-group">
       <span class="label">Impianto elettrico</span>
-      <figure><img src="assets/p04-tech-pos3.png" alt="Impianto elettrico, pianta con legenda"><figcaption>Pianta, con legenda.</figcaption></figure>
+      <figure><img src="assets/p04-tech-pos3.png" alt="Impianto elettrico, pianta con legenda" width="2339" height="3309"><figcaption>Pianta, con legenda.</figcaption></figure>
     </div>
 
     <div class="tech-group">
       <span class="label">Impianto idraulico</span>
-      <figure><img src="assets/p04-tech-pos4.png" alt="Impianto idraulico, pianta"><figcaption>Pianta.</figcaption></figure>
+      <figure><img src="assets/p04-tech-pos4.png" alt="Impianto idraulico, pianta" width="2339" height="3309"><figcaption>Pianta.</figcaption></figure>
     </div>
 
     <div class="tech-group">
       <span class="label">Sezioni bagni e lavanderia</span>
-      <figure><img src="assets/p04-tech-pos5.png" alt="Sezione, bagno 1 e bagno 2"><figcaption>Sezione, bagno 1 e bagno 2.</figcaption></figure>
+      <figure><img src="assets/p04-tech-pos5.png" alt="Sezione, bagno 1 e bagno 2" width="3281" height="2337"><figcaption>Sezione, bagno 1 e bagno 2.</figcaption></figure>
       <div class="tech-pair">
-        <figure><img src="assets/p04-tech-pos7.png" alt="Sezione, bagno 1"><figcaption>Sezione, bagno 1.</figcaption></figure>
-        <figure><img src="assets/p04-tech-pos8.png" alt="Sezione, lavanderia"><figcaption>Sezione, lavanderia.</figcaption></figure>
+        <figure><img src="assets/p04-tech-pos7.png" alt="Sezione, bagno 1" width="2388" height="2255"><figcaption>Sezione, bagno 1.</figcaption></figure>
+        <figure><img src="assets/p04-tech-pos8.png" alt="Sezione, lavanderia" width="2695" height="2337"><figcaption>Sezione, lavanderia.</figcaption></figure>
       </div>
     </div>
 
     <div class="tech-group">
       <span class="label">Impianto termico</span>
-      <figure><img src="assets/p04-tech-pos9.png" alt="Impianto termico, pianta"><figcaption>Pianta.</figcaption></figure>
+      <figure><img src="assets/p04-tech-pos9.png" alt="Impianto termico, pianta" width="1954" height="1850"><figcaption>Pianta.</figcaption></figure>
     </div>
   </div>
 </div>
@@ -1264,7 +1423,7 @@
   </div>
   <div class="tech-body">
     <div class="intervento-layout">
-      <figure class="intervento-figure"><img src="assets/p01-intervento-diagram.png" alt="Assonometria dell'intervento, Ritual Concrete"></figure>
+      <figure class="intervento-figure"><img src="assets/p01-intervento-diagram.png" alt="Assonometria dell'intervento, Ritual Concrete" width="601" height="925"></figure>
       <div class="intervento-text">
         <div class="p-block">
           <span class="label">Servizi</span>
@@ -1414,8 +1573,10 @@
     const names = ['Inquadramento', 'Disegni tecnici', 'Tokio'];
     const items = [...strip.querySelectorAll('.tav')];
     const step = () => (items[0].offsetWidth + parseFloat(getComputedStyle(strip).columnGap || 16));
-    document.querySelector('.tav-prev').addEventListener('click', () => strip.scrollBy({left:-step()}));
-    document.querySelector('.tav-next').addEventListener('click', () => strip.scrollBy({left:step()}));
+    const prevBtn = document.querySelector('.tav-prev');
+    const nextBtn = document.querySelector('.tav-next');
+    if(prevBtn) prevBtn.addEventListener('click', () => strip.scrollBy({left:-step()}));
+    if(nextBtn) nextBtn.addEventListener('click', () => strip.scrollBy({left:step()}));
 
     // trascinamento col mouse
     let down = false, sx = 0, sl = 0, dragged = false;
@@ -1460,6 +1621,68 @@
     lb.querySelector('.lb-close').addEventListener('click', close);
     lb.querySelector('.lb-prev').addEventListener('click', () => show(cur - 1));
     lb.querySelector('.lb-next').addEventListener('click', () => show(cur + 1));
+    document.addEventListener('keydown', e => {
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowRight') show(cur + 1);
+      if(e.key === 'ArrowLeft') show(cur - 1);
+    });
+  })();
+
+
+
+  // ---------- immagini che si animano al passaggio del mouse ----------
+  (function(){
+    const figs = [...document.querySelectorAll('.hv')];
+    if(!figs.length) return;
+    const canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+    figs.forEach(fig => {
+      const v = fig.querySelector('video');
+      if(!v) return;
+      const load = () => { if(!v.src){ v.src = v.dataset.src; } };
+      const start = () => { load(); const p = v.play(); if(p) p.catch(()=>{}); fig.classList.add('is-playing'); };
+      const stop  = () => { fig.classList.remove('is-playing'); setTimeout(()=>{ if(!fig.classList.contains('is-playing')) v.pause(); }, 550); };
+
+      if(canHover){
+        fig.addEventListener('pointerenter', start);
+        fig.addEventListener('pointerleave', stop);
+        // precarica appena l'immagine si avvicina allo schermo
+        new IntersectionObserver((e,o)=>{ if(e[0].isIntersecting){ load(); o.disconnect(); } },
+          {rootMargin:'600px'}).observe(fig);
+      } else {
+        // telefoni e tablet: parte da sola quando l'immagine e' sullo schermo
+        new IntersectionObserver(e => { e[0].isIntersecting ? start() : stop(); },
+          {threshold:0.4}).observe(fig);
+      }
+    });
+  })();
+
+  // ---------- fotografia: ingrandimento ----------
+  (function(){
+    const lb = document.querySelector('.ph-lb');
+    if(!lb) return;
+    const img = lb.querySelector('img');
+    const name = lb.querySelector('.phlb-name');
+    const count = lb.querySelector('.phlb-count');
+    const items = [...document.querySelectorAll('.ph-grid button')];
+    if(!items.length) return;
+    let cur = 0;
+    const show = i => {
+      cur = (i + items.length) % items.length;
+      const el = items[cur].querySelector('img');
+      img.src = el.getAttribute('src');
+      img.alt = el.getAttribute('alt') || '';
+      const series = items[cur].closest('.ph-series');
+      name.textContent = series ? series.querySelector('h3').textContent : '';
+      const inSeries = [...series.querySelectorAll('.ph-grid button')];
+      count.textContent = (inSeries.indexOf(items[cur]) + 1) + ' / ' + inSeries.length;
+    };
+    const open = i => { show(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+    items.forEach((b, i) => b.addEventListener('click', () => open(i)));
+    lb.querySelector('.phlb-close').addEventListener('click', close);
+    lb.addEventListener('click', e => { if(e.target === lb || e.target === img) close(); });
     document.addEventListener('keydown', e => {
       if(!lb.classList.contains('open')) return;
       if(e.key === 'Escape') close();
@@ -1525,7 +1748,6 @@
       if(flipBtn){
         const end = current === LEAVES;
         flipBtn.querySelector('.txt').textContent = end ? 'Da capo' : 'Sfoglia';
-        flipBtn.querySelector('.ar').textContent = end ? '↺' : '→';
       }
       prevBtn.disabled = current === 0;
       nextBtn.disabled = current === LEAVES;
